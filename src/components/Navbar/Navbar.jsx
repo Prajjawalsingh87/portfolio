@@ -1,51 +1,32 @@
 function Navbar() {
+  const links = ["Home", "About", "Skills", "Projects", "Contact"];
+
   return (
-    <nav className="bg-slate-950 text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-        {/* Logo */}
-        <h1 className="text-2xl font-bold text-cyan-400">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 text-white backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+        <a href="#home" className="text-xl font-bold tracking-tight text-cyan-300">
           Prajjawal Singh
-        </h1>
+        </a>
 
-        {/* Navigation Links */}
-        <ul className="flex gap-8">
-          <li>
-            <a href="#home" className="hover:text-cyan-400">
-              Home
-            </a>
-          </li>
-
-          <li>
-            <a href="#about" className="hover:text-cyan-400">
-              About
-            </a>
-          </li>
-
-          <li>
-            <a href="#skills" className="hover:text-cyan-400">
-              Skills
-            </a>
-          </li>
-
-          <li>
-            <a href="#projects" className="hover:text-cyan-400">
-              Projects
-            </a>
-          </li>
-
-          <li>
-            <a href="#contact" className="hover:text-cyan-400">
-              Contact
-            </a>
-          </li>
+        <ul className="hidden items-center gap-7 text-sm font-medium text-slate-300 md:flex">
+          {links.map((link) => (
+            <li key={link}>
+              <a
+                href={`#${link.toLowerCase()}`}
+                className="transition hover:text-cyan-300"
+              >
+                {link}
+              </a>
+            </li>
+          ))}
         </ul>
 
-        {/* Resume Button */}
-        <button className="bg-cyan-500 px-4 py-2 rounded-lg hover:bg-cyan-600">
+        <a
+          href="/resume.pdf"
+          className="rounded-md bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+        >
           Resume
-        </button>
-
+        </a>
       </div>
     </nav>
   );
