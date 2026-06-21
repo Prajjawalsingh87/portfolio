@@ -1,21 +1,41 @@
 const projects = [
   {
-    title: "Portfolio Website",
+    title: "Distributed Event Processing Platform",
     description:
-      "A responsive personal portfolio built with React, Vite, and Tailwind CSS.",
-    tags: ["React", "Tailwind", "Vite"],
+      "High-throughput Kafka-based pipeline for real-time event processing with durable backend storage.",
+    tags: ["Kafka", "Django", "PostgreSQL", "Redis"],
   },
   {
-    title: "Task Manager",
+    title: "Real-Time Analytics Engine",
     description:
-      "A productivity app concept for tracking tasks, priorities, and daily progress.",
-    tags: ["JavaScript", "React", "UI"],
+      "ClickHouse-powered analytics backend designed for fast reads and practical product metrics.",
+    tags: ["ClickHouse", "FastAPI", "Analytics"],
   },
   {
-    title: "Weather Dashboard",
+    title: "College Name Matching System",
     description:
-      "A clean dashboard concept that displays weather data with readable cards.",
-    tags: ["API", "CSS", "Frontend"],
+      "High-accuracy fuzzy matching engine for normalizing and comparing college names.",
+    tags: ["Python", "Pandas", "RapidFuzz"],
+  },
+  {
+    title: "Distributed Rate Limiter",
+    description:
+      "Token-bucket based distributed rate limiter backed by Redis and Lua scripting.",
+    tags: ["Redis", "Lua", "Python"],
+  },
+  {
+    title: "Real-Time Currency Converter",
+    description:
+      "API-based currency conversion project listed in the public GitHub project categories.",
+    tags: ["JavaScript", "API", "Frontend"],
+    href: "https://github.com/prajjawalsingh87/real-time-currencyconverter",
+  },
+  {
+    title: "NoteVault",
+    description:
+      "React application project listed as a medium-level project on the GitHub profile.",
+    tags: ["React", "App", "UI"],
+    href: "https://github.com/prajjawalsingh87/NoteVault",
   },
 ];
 
@@ -32,12 +52,17 @@ function Projects() {
               Selected work.
             </h2>
           </div>
-          <a href="#contact" className="font-semibold text-cyan-300 hover:text-cyan-200">
-            Let us build something
+          <a
+            href="https://github.com/Prajjawalsingh87"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-cyan-300 hover:text-cyan-200"
+          >
+            See GitHub profile
           </a>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
             <article
               key={project.title}
@@ -56,6 +81,16 @@ function Projects() {
                   </span>
                 ))}
               </div>
+              {project.href && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex font-semibold text-cyan-300 hover:text-cyan-200"
+                >
+                  Open repository
+                </a>
+              )}
             </article>
           ))}
         </div>

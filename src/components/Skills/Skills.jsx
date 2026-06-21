@@ -1,16 +1,21 @@
 const skills = [
-  "HTML",
-  "CSS",
+  "Python",
+  "C++",
   "JavaScript",
-  "React",
-  "Tailwind CSS",
-  "Node.js",
-  "Git",
-  "GitHub",
-  "Responsive Design",
+  "Django",
+  "FastAPI",
   "REST APIs",
-  "Vite",
-  "Problem Solving",
+  "Kafka",
+  "PostgreSQL",
+  "MySQL",
+  "ClickHouse",
+  "Redis",
+  "Docker",
+  "Git",
+  "Linux",
+  "Prometheus",
+  "Grafana",
+  "System Design",
 ];
 
 function Skills() {
@@ -22,7 +27,7 @@ function Skills() {
             Skills
           </p>
           <h2 className="mt-3 text-4xl font-bold text-white">
-            Technologies I work with.
+            Backend stack from my GitHub profile.
           </h2>
         </div>
 

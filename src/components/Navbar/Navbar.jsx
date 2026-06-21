@@ -1,5 +1,6 @@
 function Navbar() {
   const links = ["Home", "About", "Skills", "Projects", "Contact"];
+  const githubUrl = "https://github.com/Prajjawalsingh87";
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 text-white backdrop-blur">
@@ -22,10 +23,12 @@ function Navbar() {
         </ul>
 
         <a
-          href="/resume.pdf"
+          href={githubUrl}
+          target="_blank"
+          rel="noreferrer"
           className="rounded-md bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
         >
-          Resume
+          GitHub
         </a>
       </div>
     </nav>
