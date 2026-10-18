@@ -1,15 +1,77 @@
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
+/* Design tokens — every color, font and radius used in the UI lives here. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink: #07090d;
+  --color-surface: #0d1117;
+  --color-raised: #141a22;
+  --color-line: #1f2732;
+  --color-line-strong: #2c3644;
+
+  --color-fg: #e8edf3;
+  --color-muted: #9aa6b5;
+  --color-subtle: #6f7c8c;
+
+  --color-accent: #5eead4;
+  --color-accent-strong: #2dd4bf;
+  --color-accent-soft: rgb(94 234 212 / 0.1);
+
+  --radius-card: 1rem;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  background: #020617;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(94 234 212 / 0.3);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
 }
 
-* {
-  box-sizing: border-box;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Faint grid behind the hero, faded out toward the edges. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 40%, transparent 100%);
 }

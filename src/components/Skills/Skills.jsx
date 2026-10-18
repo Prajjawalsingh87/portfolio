@@ -1,48 +1,50 @@
-const skills = [
-  "Python",
-  "C++",
-  "JavaScript",
-  "Django",
-  "FastAPI",
-  "REST APIs",
-  "Kafka",
-  "PostgreSQL",
-  "MySQL",
-  "ClickHouse",
-  "Redis",
-  "Docker",
-  "Git",
-  "Linux",
-  "Prometheus",
-  "Grafana",
-  "System Design",
+import Section from "../Section/Section";
+
+const skillGroups = [
+  { title: "Languages", span: "lg:col-span-2", items: ["Python", "C++", "JavaScript"] },
+  { title: "Backend & APIs", span: "lg:col-span-2", items: ["Django", "FastAPI", "REST APIs"] },
+  {
+    title: "Data & Messaging",
+    span: "sm:col-span-2 lg:col-span-2",
+    items: ["Kafka", "PostgreSQL", "MySQL", "ClickHouse", "Redis"],
+  },
+  {
+    title: "Infrastructure & Observability",
+    span: "lg:col-span-3",
+    items: ["Docker", "Git", "Linux", "Prometheus", "Grafana"],
+  },
+  { title: "Engineering", span: "lg:col-span-3", items: ["System Design"] },
 ];
 
 function Skills() {
   return (
-    <section id="skills" className="py-20">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">
-            Skills
-          </p>
-          <h2 className="mt-3 text-4xl font-bold text-white">
-            Backend stack from my GitHub profile.
-          </h2>
-        </div>
-
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {skills.map((skill) => (
-            <div
-              key={skill}
-              className="rounded-xl border border-white/10 bg-white/[0.04] p-5 text-center font-semibold text-slate-100 transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
-            >
-              {skill}
-            </div>
-          ))}
-        </div>
+    <Section
+      id="skills"
+      eyebrow="Skills"
+      title="Backend stack from my GitHub profile."
+      className="bg-surface/40"
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {skillGroups.map((group) => (
+          <div
+            key={group.title}
+            className={`rounded-[var(--radius-card)] border border-line bg-surface p-6 transition-colors hover:border-line-strong ${group.span}`}
+          >
+            <h3 className="text-sm font-semibold text-fg">{group.title}</h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {group.items.map((skill) => (
+                <li
+                  key={skill}
+                  className="rounded-md border border-line bg-raised px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent/50 hover:text-fg"
+                >
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
 

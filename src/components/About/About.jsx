@@ -1,20 +1,24 @@
+import { links } from "../../data/profile";
+import Section from "../Section/Section";
+
+const inlineLink =
+  "font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent";
+
+const highlights = [
+  { label: "Focus", value: "Backend systems at scale" },
+  { label: "Interests", value: "System design & performance" },
+  { label: "Core stack", value: "Django · Kafka · PostgreSQL" },
+];
+
 function About() {
-  const linkedInUrl = "https://www.linkedin.com/in/prajjawal-singh-1723621ab/";
-  const githubUrl = "https://github.com/Prajjawalsingh87";
-
   return (
-    <section id="about" className="border-t border-white/10 bg-slate-900/60 py-20">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-[0.8fr_1.2fr] md:px-8">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">
-            About
-          </p>
-          <h2 className="mt-3 text-4xl font-bold text-white">
-            Backend engineer building for scale, reliability, and speed.
-          </h2>
-        </div>
-
-        <div className="space-y-6 text-lg leading-8 text-slate-300">
+    <Section
+      id="about"
+      eyebrow="About"
+      title="Backend engineer building for scale, reliability, and speed."
+    >
+      <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:gap-16">
+        <div className="space-y-5 text-base leading-8 text-muted md:text-lg">
           <p>
             I work on scalable and reliable backend systems, with hands-on
             experience across Django, REST APIs, Kafka, PostgreSQL, Redis, and
@@ -24,32 +28,30 @@ function About() {
           <p>
             My GitHub profile is the source for the technical stack, featured
             projects, and coding profile links used here. For professional
-            networking, you can also connect with me on
-            {" "}
-            <a
-              href={linkedInUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-cyan-300 hover:text-cyan-200"
-            >
+            networking, you can also connect with me on{" "}
+            <a href={links.linkedin} target="_blank" rel="noreferrer" className={inlineLink}>
               LinkedIn
-            </a>
-            {" "}
-            or explore my repositories on
-            {" "}
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-cyan-300 hover:text-cyan-200"
-            >
+            </a>{" "}
+            or explore my repositories on{" "}
+            <a href={links.github} target="_blank" rel="noreferrer" className={inlineLink}>
               GitHub
             </a>
             .
           </p>
         </div>
+
+        <dl className="divide-y divide-line self-start rounded-[var(--radius-card)] border border-line bg-surface">
+          {highlights.map((item) => (
+            <div key={item.label} className="px-5 py-4">
+              <dt className="font-mono text-xs uppercase tracking-[0.16em] text-subtle">
+                {item.label}
+              </dt>
+              <dd className="mt-1 font-medium text-fg">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
-    </section>
+    </Section>
   );
 }
 

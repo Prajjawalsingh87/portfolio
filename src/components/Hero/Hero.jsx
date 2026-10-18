@@ -1,73 +1,157 @@
-function Hero() {
-  const linkedInUrl = "https://www.linkedin.com/in/prajjawal-singh-1723621ab/";
-  const githubUrl = "https://github.com/Prajjawalsingh87";
+import { useState } from "react";
+import { links, profile } from "../../data/profile";
+import { ArrowUpRightIcon, DownloadIcon, LinkedInIcon, PinIcon } from "../Icons/Icons";
+
+const focus = [
+  "Django REST APIs",
+  "Kafka pipelines",
+  "PostgreSQL",
+  "Redis",
+  "ClickHouse",
+  "FastAPI",
+  "Docker",
+  "Linux",
+  "Prometheus",
+  "Grafana",
+];
+
+function Avatar() {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <div
+        aria-hidden="true"
+        className="grid h-14 w-14 place-items-center rounded-xl bg-accent-soft font-mono text-lg font-bold text-accent"
+      >
+        PS
+      </div>
+    );
+  }
 
   return (
-    <section id="home" className="overflow-hidden">
-      <div className="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-[1.1fr_0.9fr] md:px-8">
+    <img
+      src={profile.avatar}
+      alt={`${profile.name} GitHub avatar`}
+      width="56"
+      height="56"
+      onError={() => setFailed(true)}
+      className="h-14 w-14 rounded-xl border border-line-strong object-cover"
+    />
+  );
+}
+
+function Hero() {
+  return (
+    <section id="home" className="relative isolate overflow-hidden">
+      <div aria-hidden="true" className="bg-grid absolute inset-0 -z-10" />
+      <div
+        aria-hidden="true"
+        className="absolute -top-40 left-1/2 -z-10 h-[28rem] w-[min(56rem,100%)] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
+      />
+
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pb-20 pt-14 md:px-8 md:pb-28 md:pt-24 lg:grid-cols-[1.15fr_0.85fr]">
         <div>
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-cyan-300">
-            Backend Developer
-          </p>
-          <h1 className="max-w-4xl text-5xl font-black leading-tight text-white md:text-7xl">
-            Prajjawal Singh builds scalable APIs and reliable distributed systems.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Backend engineer focused on Django, Kafka, databases, performance
-            optimization, and system design. Currently associated with Tailnode
-            and based in Gurugram, Haryana.
+          <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/80 px-3 py-1 text-sm text-muted">
+            <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+            {profile.role} · Currently at {profile.company}
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-tight text-fg text-balance sm:text-5xl md:text-6xl">
+            Hi, I&apos;m {profile.name}.{" "}
+            <span className="text-muted">
+              I build scalable APIs and reliable distributed systems.
+            </span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base leading-7 text-muted md:text-lg md:leading-8">
+            Backend engineer focused on Django, Kafka, databases, performance
+            optimization, and system design.
+          </p>
+
+          <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-subtle">
+            <PinIcon />
+            Based in {profile.location}
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-md bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300"
+              href="#projects"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 font-semibold text-ink transition-colors hover:bg-accent-strong"
             >
-              View GitHub
+              View projects
             </a>
             <a
-              href={linkedInUrl}
+              href={profile.resume}
               target="_blank"
               rel="noreferrer"
-              className="rounded-md border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-300"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-line-strong px-5 py-3 font-semibold text-fg transition-colors hover:border-accent hover:text-accent"
             >
-              View LinkedIn
+              <DownloadIcon width={18} height={18} />
+              Resume
+            </a>
+            <a
+              href={links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold text-muted transition-colors hover:text-fg"
+            >
+              <LinkedInIcon width={18} height={18} />
+              LinkedIn
+              <ArrowUpRightIcon />
             </a>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-3xl" />
-          <div className="relative rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-950/30">
-            <div className="rounded-2xl border border-white/10 bg-slate-900 p-6">
-              <img
-                src="https://github.com/Prajjawalsingh87.png"
-                alt="Prajjawal Singh GitHub avatar"
-                className="mb-6 h-20 w-20 rounded-2xl border border-white/10"
-              />
-              <p className="text-sm text-slate-400">Current focus</p>
-              <h2 className="mt-3 text-3xl font-bold text-white">
-                Scalable Backend Systems
-              </h2>
-              <p className="mt-4 leading-7 text-slate-300">
-                Django REST APIs, Kafka pipelines, PostgreSQL, Redis,
-                ClickHouse, FastAPI, Docker, Linux, Prometheus, and Grafana.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-4 text-center">
-                <div className="rounded-xl bg-slate-800 p-4">
-                  <p className="text-3xl font-bold text-cyan-300">8</p>
-                  <p className="mt-1 text-sm text-slate-400">Repos</p>
-                </div>
-                <div className="rounded-xl bg-slate-800 p-4">
-                  <p className="text-3xl font-bold text-cyan-300">2025</p>
-                  <p className="mt-1 text-sm text-slate-400">NIT Trichy</p>
-                </div>
+        <aside
+          aria-label="Profile summary"
+          className="relative rounded-[var(--radius-card)] border border-line bg-surface/90 shadow-2xl shadow-black/40"
+        >
+          <div className="flex items-center gap-2 border-b border-line px-5 py-3">
+            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
+            <span className="ml-2 font-mono text-xs text-subtle">profile.json</span>
+          </div>
+
+          <div className="p-6">
+            <div className="flex items-center gap-4">
+              <Avatar />
+              <div>
+                <p className="font-semibold text-fg">{profile.name}</p>
+                <p className="text-sm text-muted">{profile.role}</p>
               </div>
             </div>
+
+            <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-subtle">
+              Current focus
+            </p>
+            <p className="mt-2 text-xl font-semibold text-fg">
+              Scalable backend systems
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {focus.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-md border border-line bg-raised px-2.5 py-1 font-mono text-xs text-muted"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line">
+              <div className="bg-raised p-4">
+                <dt className="text-xs text-subtle">Education</dt>
+                <dd className="mt-1 font-semibold text-fg">{profile.education}</dd>
+              </div>
+              <div className="bg-raised p-4">
+                <dt className="text-xs text-subtle">Year</dt>
+                <dd className="mt-1 font-semibold text-accent">{profile.educationYear}</dd>
+              </div>
+            </dl>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
   );
