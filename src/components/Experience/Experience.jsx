@@ -2,28 +2,40 @@ import { profile } from "../../data/profile";
 import Section from "../Section/Section";
 
 const impact = [
-  { value: "90%", label: "lower static-asset delivery cost (CDN)" },
-  { value: "60%", label: "faster global page loads for 50K+ users" },
+  { value: "90%+", label: "lower S3 storage cost through archival planning" },
+  { value: "60–70%", label: "cheaper streaming: self-hosted Kafka → WarpStream" },
+  { value: "90%", label: "lower static-asset delivery cost with a CDN" },
   { value: "99.9%", label: "uptime SLA on Kubernetes + Helm" },
-  { value: "<2 min", label: "reporting latency, down from hours" },
 ];
 
 const work = [
   {
-    title: "Real-time data pipeline",
-    text: "Automated the Kafka → ClickHouse ETL for 500K+ daily events, with replication for high availability and CQRS/Event Sourcing for audit-ready data.",
+    title: "Real-time data pipeline & CDC",
+    text: "Automated the Kafka → ClickHouse ETL for 500K+ daily events, cutting reporting latency from hours to under 2 minutes. Used CDC (change data capture) to stream database changes, with replication for high availability and CQRS/Event Sourcing for audit-ready data.",
   },
   {
-    title: "Low-latency APIs",
-    text: "Built REST and FastAPI endpoints at sub-50 ms p99, secured with OAuth2/JWT and layered with Repository, Factory and Strategy patterns.",
+    title: "Kafka → WarpStream migration",
+    text: "Moved streaming from self-hosted Kafka to WarpStream (Kafka-compatible, backed by object storage), keeping the same Kafka API while cutting streaming cost by about 60–70%.",
   },
   {
-    title: "Infrastructure",
-    text: "Containerized services with Docker, deployed on Kubernetes with Helm and Ingress behind a load balancer, and set up Nginx as reverse proxy.",
+    title: "S3 storage cost optimisation",
+    text: "Planned and ran a storage strategy for millions of old objects: batched them into large archives, verified every file, and moved them to Glacier Deep Archive with lifecycle rules, reducing S3 storage cost by over 90%.",
   },
   {
-    title: "Performance",
-    text: "Added a CDN layer for static assets and implemented Ramer–Douglas–Peucker to shrink GPS payloads by ~90% for faster maps.",
+    title: "APIs: Django, FastAPI, gRPC",
+    text: "Built Django and FastAPI services and REST endpoints at sub-50 ms p99, secured with OAuth2/JWT, plus gRPC for fast service-to-service calls. Layered with Repository, Factory and Strategy patterns.",
+  },
+  {
+    title: "Coordinate payload reduction",
+    text: "Implemented a coordinate-reduction algorithm (Ramer–Douglas–Peucker) and served routes over gRPC, shrinking GPS coordinate responses by ~90% for faster map rendering.",
+  },
+  {
+    title: "Infrastructure, networking & DNS",
+    text: "Containerized services with Docker and deployed them on Kubernetes with Helm and Ingress. Configured load balancers and Nginx as reverse proxy, and managed DNS with Route 53 hosted zones. Added a CDN that made global page loads 60% faster for 50K+ users.",
+  },
+  {
+    title: "AI tooling & MCP",
+    text: "Hands-on with the Model Context Protocol (MCP) for AI tool integrations, and use Claude Code, Cursor and Copilot with careful code review to ship tested code faster.",
   },
   {
     title: "System design",
@@ -31,11 +43,11 @@ const work = [
   },
   {
     title: "Production support",
-    text: "Debugged issues across logs, metrics, databases and services, shipping tested fixes faster with AI coding tools.",
+    text: "Debugged production issues across logs, metrics, databases and service responses, and shipped tested fixes quickly.",
   },
 ];
 
-const stack = ["FastAPI", "Kafka", "ClickHouse", "PostgreSQL", "Redis", "ScyllaDB", "Docker", "Kubernetes", "Helm", "Nginx", "AWS"];
+const stack = ["Django", "FastAPI", "gRPC", "Kafka", "WarpStream", "CDC", "ClickHouse", "PostgreSQL", "Redis", "ScyllaDB", "AWS S3", "Route 53", "Docker", "Kubernetes", "Helm", "Nginx", "Load Balancer", "MCP"];
 
 function Experience() {
   return (
@@ -66,7 +78,7 @@ function Experience() {
         <div>
           <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {impact.map((item) => (
-              <div key={item.value} className="flex flex-col-reverse rounded-2xl bg-accent-soft p-4">
+              <div key={item.value} className="flex flex-col-reverse justify-end rounded-2xl bg-accent-soft p-4">
                 <dt className="mt-1 text-sm leading-5 text-muted">{item.label}</dt>
                 <dd className="font-display text-2xl font-extrabold text-accent md:text-3xl">{item.value}</dd>
               </div>

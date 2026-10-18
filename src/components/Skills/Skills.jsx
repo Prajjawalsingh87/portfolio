@@ -3,12 +3,13 @@ import Section from "../Section/Section";
 const skillGroups = [
   { title: "Languages", items: ["Java 17+", "Python", "C++", "SQL", "JavaScript"] },
   { title: "Frameworks", items: ["Spring Boot", "Spring MVC", "Hibernate/JPA", "FastAPI", "Django", "JUnit", "MapStruct", "Liquibase/Flyway"] },
-  { title: "APIs & Auth", items: ["REST API design", "GraphQL", "Microservices", "OAuth2", "JWT"] },
+  { title: "APIs & Auth", items: ["REST API design", "gRPC", "GraphQL", "Microservices", "OAuth2", "JWT"] },
   { title: "Integrations", items: ["Webhooks", "Idempotency keys", "Retries & replay", "Reconciliation", "HMAC signing", "JWS/JWE", "Payment gateways"] },
   { title: "Databases", items: ["PostgreSQL", "MySQL", "ClickHouse", "ScyllaDB", "MongoDB", "Redis", "Memcached", "Query optimisation"] },
-  { title: "Messaging", items: ["Kafka", "SQS", "RabbitMQ", "Event-driven", "CQRS", "Event sourcing", "Stream processing"] },
-  { title: "Cloud & DevOps", items: ["AWS EKS · RDS · S3", "Docker", "Kubernetes", "Helm", "Ingress", "Nginx", "CDN", "GitHub Actions"] },
+  { title: "Streaming", items: ["Kafka", "WarpStream", "CDC", "SQS", "RabbitMQ", "Event-driven", "CQRS", "Event sourcing", "Stream processing"] },
+  { title: "Cloud & DevOps", items: ["AWS EKS · RDS · S3", "S3 Glacier & lifecycle", "Route 53", "Hosted zones", "Load balancers", "Nginx", "CDN", "Docker", "Kubernetes", "Helm", "Ingress", "GitHub Actions"] },
   { title: "Observability", items: ["OpenTelemetry", "SigNoz", "Grafana", "Tracing", "Structured logging"] },
+  { title: "AI tooling", items: ["MCP (Model Context Protocol)", "Claude Code", "Cursor", "GitHub Copilot"] },
   { title: "Foundations", items: ["DSA", "System design", "Concurrency", "OOP", "Design patterns"] },
 ];
 

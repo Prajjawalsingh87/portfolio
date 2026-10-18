@@ -69,9 +69,9 @@ function Hero() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
-            Backend engineer working with <strong className="font-semibold text-fg">FastAPI, Django and Spring Boot</strong>,
-            streaming data through <strong className="font-semibold text-fg">Kafka and ClickHouse</strong>, and shipping it
-            on <strong className="font-semibold text-fg">AWS, Docker and Kubernetes</strong>.
+            Backend engineer working with <strong className="font-semibold text-fg">Django, FastAPI, Spring Boot and gRPC</strong>,
+            streaming data with <strong className="font-semibold text-fg">Kafka, WarpStream, CDC and ClickHouse</strong>, and
+            running it on <strong className="font-semibold text-fg">AWS, Docker and Kubernetes</strong>, with a habit of cutting cloud costs.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

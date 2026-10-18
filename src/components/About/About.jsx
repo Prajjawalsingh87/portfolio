@@ -7,9 +7,9 @@ const inlineLink = "font-semibold text-accent underline decoration-accent/30 und
 const facts = [
   { label: "Role", value: "Backend Engineer, TailNode" },
   { label: "Education", value: "B.Tech ECE, NIT Trichy (2021–25)" },
-  { label: "Core stack", value: "Python · Java · FastAPI · Spring Boot" },
-  { label: "Data", value: "Kafka · ClickHouse · PostgreSQL · Redis" },
-  { label: "Infra", value: "AWS · Docker · Kubernetes · Helm" },
+  { label: "Core stack", value: "Python · Java · Django · FastAPI · gRPC" },
+  { label: "Data", value: "Kafka · WarpStream · CDC · ClickHouse · PostgreSQL" },
+  { label: "Infra", value: "AWS (S3, Route 53) · Nginx · Kubernetes" },
 ];
 
 const ratings = [
@@ -25,8 +25,9 @@ function About() {
         <div className="space-y-5 text-lg leading-8 text-muted">
           <p>
             For the last year I&apos;ve been building production systems at TailNode: APIs that answer in under
-            50&nbsp;ms, an event pipeline moving half a million events a day, and the Docker, Kubernetes and Nginx
-            setup that keeps it all at 99.9% uptime.
+            50&nbsp;ms, an event pipeline moving half a million events a day, and the Kubernetes, Nginx and Route 53
+            setup that keeps it all at 99.9% uptime. I also like making infrastructure cheaper: S3 storage down
+            90%+, streaming down 60–70% after moving from Kafka to WarpStream.
           </p>
           <p>
             I care about clean API design, reliable integrations (webhooks, idempotency, retries) and knowing

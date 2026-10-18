@@ -19,13 +19,13 @@ const work = [
   {
     title: "In production at TailNode",
     description:
-      "Services on Kubernetes via Helm and Ingress behind a load balancer (99.9% uptime), Nginx as reverse proxy, and a CDN that cut asset costs by 90%.",
-    tags: ["Helm", "Ingress", "Nginx", "CDN", "Load Balancer"],
+      "Services on Kubernetes via Helm and Ingress behind load balancers (99.9% uptime), Nginx as reverse proxy, Route 53 hosted zones for DNS, a CDN that cut asset costs by 90%, S3 archival that cut storage cost by 90%+, and a Kafka → WarpStream move that cut streaming cost by 60–70%.",
+    tags: ["Helm", "Ingress", "Nginx", "Route 53", "CDN", "S3 Glacier", "WarpStream"],
   },
 ];
 
 const toolchain = [
-  { title: "Cloud", items: ["AWS EKS", "RDS", "S3", "Secrets Manager", "EC2", "CDN"] },
+  { title: "Cloud", items: ["AWS EKS", "RDS", "S3 & Glacier", "Route 53", "Secrets Manager", "EC2", "CDN"] },
   { title: "Containers", items: ["Docker", "docker-compose", "Kubernetes", "Helm", "Ingress"] },
   { title: "Delivery", items: ["GitHub Actions", "CI/CD", "Nginx", "Load Balancer"] },
   { title: "Observability", items: ["OpenTelemetry", "SigNoz", "Grafana", "Tracing", "Metrics"] },
