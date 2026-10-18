@@ -6,13 +6,18 @@ import {
   DownloadIcon,
   GitHubIcon,
   LinkedInIcon,
+  MailIcon,
+  MediumIcon,
 } from "../Icons/Icons";
 import Section from "../Section/Section";
 
 const profiles = [
+  { label: "Email", handle: profile.email, href: `mailto:${profile.email}`, Icon: MailIcon },
   { label: "LinkedIn", handle: profile.name, href: links.linkedin, Icon: LinkedInIcon },
   { label: "GitHub", handle: "Prajjawalsingh87", href: links.github, Icon: GitHubIcon },
-  { label: "LeetCode", handle: "sprajjawalsingh", href: links.leetcode, Icon: CodeIcon },
+  { label: "Medium", handle: "@singhprajjawal87", href: links.medium, Icon: MediumIcon },
+  { label: "LeetCode", handle: "sprajjawalsingh · 2130", href: links.leetcode, Icon: CodeIcon },
+  { label: "CodeChef", handle: "singhprajjawal · 4★", href: links.codechef, Icon: ChartIcon },
   { label: "Codeforces", handle: "singhprajjawal87", href: links.codeforces, Icon: ChartIcon },
 ];
 
@@ -21,11 +26,11 @@ function Contact() {
     <Section
       id="contact"
       eyebrow="Contact"
-      title="Connect through my verified profiles."
-      intro="GitHub is the source of my technical portfolio. LinkedIn and coding profiles are linked for professional networking and problem-solving activity."
+      title="Let’s talk backend, data or DevOps."
+      intro="Email or LinkedIn is the fastest way to reach me. My code is on GitHub and my writing on Medium."
       className="bg-surface/40"
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [&>*:first-child]:sm:col-span-2">
         {profiles.map(({ label, handle, href, Icon }) => (
           <a
             key={label}
@@ -49,7 +54,7 @@ function Contact() {
       <div className="mt-4 flex flex-col items-start justify-between gap-5 rounded-[var(--radius-card)] border border-accent/30 bg-accent-soft p-6 sm:flex-row sm:items-center md:p-8">
         <div>
           <p className="text-lg font-semibold text-fg">Resume</p>
-          <p className="mt-1 text-muted">Get the full picture of my background in one PDF.</p>
+          <p className="mt-1 text-muted">Backend Engineer · Java, Python, FastAPI, Spring Boot, Kafka, AWS, Kubernetes.</p>
         </div>
         <a
           href={profile.resume}

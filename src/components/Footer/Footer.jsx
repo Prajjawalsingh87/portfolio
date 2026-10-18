@@ -1,11 +1,12 @@
 import { links, profile } from "../../data/profile";
-import { GitHubIcon, LinkedInIcon } from "../Icons/Icons";
+import { GitHubIcon, LinkedInIcon, MediumIcon } from "../Icons/Icons";
 
 function Footer() {
   const year = new Date().getFullYear();
   const social = [
     { label: "GitHub", href: links.github, Icon: GitHubIcon },
     { label: "LinkedIn", href: links.linkedin, Icon: LinkedInIcon },
+    { label: "Medium", href: links.medium, Icon: MediumIcon },
   ];
 
   return (

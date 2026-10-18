@@ -3,16 +3,24 @@ import { links, profile } from "../../data/profile";
 import { ArrowUpRightIcon, DownloadIcon, LinkedInIcon, PinIcon } from "../Icons/Icons";
 
 const focus = [
-  "Django REST APIs",
-  "Kafka pipelines",
+  "FastAPI",
+  "Django",
+  "Spring Boot",
+  "Kafka → ClickHouse",
   "PostgreSQL",
   "Redis",
-  "ClickHouse",
-  "FastAPI",
+  "AWS",
   "Docker",
-  "Linux",
-  "Prometheus",
-  "Grafana",
+  "Kubernetes",
+  "Helm",
+  "Nginx",
+];
+
+const stats = [
+  { label: "Experience", value: "1+ year" },
+  { label: "LeetCode", value: "2130 · Guardian" },
+  { label: "Education", value: "NIT Trichy" },
+  { label: "DSA solved", value: "1,000+" },
 ];
 
 function Avatar() {
@@ -60,13 +68,14 @@ function Hero() {
           <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-tight text-fg text-balance sm:text-5xl md:text-6xl">
             Hi, I&apos;m {profile.name}.{" "}
             <span className="text-muted">
-              I build scalable APIs and reliable distributed systems.
+              I build scalable APIs, real-time data pipelines and cloud-native services.
             </span>
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-muted md:text-lg md:leading-8">
-            Backend engineer focused on Django, Kafka, databases, performance
-            optimization, and system design.
+            Backend engineer at {profile.company} working with FastAPI, Django and
+            Java/Spring Boot, Kafka and ClickHouse pipelines, and AWS, Docker and
+            Kubernetes in production.
           </p>
 
           <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-subtle">
@@ -127,7 +136,7 @@ function Hero() {
               Current focus
             </p>
             <p className="mt-2 text-xl font-semibold text-fg">
-              Scalable backend systems
+              Backend systems, data pipelines &amp; DevOps
             </p>
             <ul className="mt-4 flex flex-wrap gap-2">
               {focus.map((item) => (
@@ -141,14 +150,12 @@ function Hero() {
             </ul>
 
             <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line">
-              <div className="bg-raised p-4">
-                <dt className="text-xs text-subtle">Education</dt>
-                <dd className="mt-1 font-semibold text-fg">{profile.education}</dd>
-              </div>
-              <div className="bg-raised p-4">
-                <dt className="text-xs text-subtle">Year</dt>
-                <dd className="mt-1 font-semibold text-accent">{profile.educationYear}</dd>
-              </div>
+              {stats.map((stat) => (
+                <div key={stat.label} className="bg-raised p-4">
+                  <dt className="text-xs text-subtle">{stat.label}</dt>
+                  <dd className="mt-1 font-semibold text-fg">{stat.value}</dd>
+                </div>
+              ))}
             </dl>
           </div>
         </aside>

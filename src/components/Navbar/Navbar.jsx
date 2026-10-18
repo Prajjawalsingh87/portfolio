@@ -16,7 +16,7 @@ function Navbar() {
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (event) => event.key === "Escape" && setOpen(false);
-    const onResize = () => window.innerWidth >= 768 && setOpen(false);
+    const onResize = () => window.innerWidth >= 1024 && setOpen(false);
     window.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
     return () => {
@@ -53,7 +53,7 @@ function Navbar() {
           {profile.name}
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -82,7 +82,7 @@ function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-10 w-10 place-items-center rounded-lg text-fg transition-colors hover:bg-raised md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-lg text-fg transition-colors hover:bg-raised lg:hidden"
           >
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -90,7 +90,7 @@ function Navbar() {
       </nav>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-line md:hidden">
+        <div id="mobile-menu" className="border-t border-line lg:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col px-5 py-3">
             {navLinks.map((link) => (
               <li key={link.href}>
