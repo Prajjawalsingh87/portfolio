@@ -1,16 +1,36 @@
-# React + Vite
+# 👋 Prajjawal Singh — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My personal portfolio: who I am, the backend stack I work with, selected projects and how to reach me.
 
-Currently, two official plugins are available:
+**🔗 Live:** https://portfolio-ashy-three-70.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Sections
 
-## React Compiler
+- **Hero**: intro, current focus, and quick links to projects, resume and LinkedIn
+- **About**: background and what I'm interested in
+- **Skills**: grouped by languages, backend & APIs, data & messaging, infrastructure and engineering
+- **Projects**: selected work with tech tags and repo links
+- **Contact**: LinkedIn, GitHub, LeetCode and Codeforces profiles, plus a resume download
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Dark theme, sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React 19 · Vite · Tailwind CSS 4
+
+## ▶️ Run locally
+
+```bash
+git clone https://github.com/Prajjawalsingh87/portfolio.git
+cd portfolio
+npm install
+npm run dev        # http://localhost:5173
+```
+
+## ✏️ Updating content
+
+Profile links live in [`src/data/profile.js`](src/data/profile.js); each section is a component in [`src/components/`](src/components/). The resume served by the site is [`public/resume.pdf`](public/resume.pdf).
+
+## 🚀 Deployment
+
+Deployed on **Vercel**; every push to `main` deploys to production.
