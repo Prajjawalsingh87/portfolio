@@ -37,7 +37,7 @@ function Writing() {
     <Section
       id="writing"
       eyebrow="Writing"
-      title="Notes on databases and distributed systems."
+      title="I write about how systems really work."
       action={
         <a
           href={links.medium}
@@ -51,18 +51,18 @@ function Writing() {
         </a>
       }
     >
-      <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface">
+      <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-card">
         {articles.map((article) => (
           <li key={article.href}>
             <a
               href={article.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-raised md:px-6"
+              className="group flex items-center justify-between gap-4 px-5 py-5 transition-colors hover:bg-ink md:px-7"
             >
               <span className="min-w-0">
-                <span className="block font-medium text-fg group-hover:text-accent">{article.title}</span>
-                <span className="mt-1 block font-mono text-xs text-subtle">{article.date} · Medium</span>
+                <span className="block font-display text-lg font-bold leading-snug text-fg group-hover:text-accent">{article.title}</span>
+                <span className="mt-1 block text-sm text-subtle">{article.date} · Medium</span>
               </span>
               <ArrowUpRightIcon className="shrink-0 text-subtle transition-colors group-hover:text-accent" />
             </a>

@@ -1,88 +1,72 @@
 import { links } from "../../data/profile";
-import { TrophyIcon } from "../Icons/Icons";
+import { ArrowUpRightIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
 
-const inlineLink =
-  "font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent";
+const inlineLink = "font-semibold text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent";
 
-const achievements = [
-  {
-    label: "LeetCode Guardian",
-    value: "2130 rating",
-    detail: "Top 1.92% globally · 953 problems · 330+ day streak",
-    href: links.leetcode,
-  },
-  {
-    label: "CodeChef 4★",
-    value: "Peak 1922",
-    detail: "Rated contests and long challenges",
-    href: links.codechef,
-  },
-  {
-    label: "Codeforces Specialist",
-    value: "Max ~1550",
-    detail: "1,000+ DSA problems across platforms",
-    href: links.codeforces,
-  },
+const facts = [
+  { label: "Role", value: "Backend Engineer, TailNode" },
+  { label: "Education", value: "B.Tech ECE, NIT Trichy (2021–25)" },
+  { label: "Core stack", value: "Python · Java · FastAPI · Spring Boot" },
+  { label: "Data", value: "Kafka · ClickHouse · PostgreSQL · Redis" },
+  { label: "Infra", value: "AWS · Docker · Kubernetes · Helm" },
+];
+
+const ratings = [
+  { site: "LeetCode", rating: "2130", badge: "Guardian · top 1.92%", href: links.leetcode, color: "bg-amber-500" },
+  { site: "CodeChef", rating: "1922", badge: "4★ peak", href: links.codechef, color: "bg-orange-700" },
+  { site: "Codeforces", rating: "~1550", badge: "Specialist", href: links.codeforces, color: "bg-cyan-600" },
 ];
 
 function About() {
   return (
-    <Section
-      id="about"
-      eyebrow="About"
-      title="Backend engineer building for scale, reliability, and speed."
-    >
-      <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:gap-16">
-        <div className="space-y-5 text-base leading-8 text-muted md:text-lg">
+    <Section id="about" eyebrow="About me" title="I like backend problems that have to work at scale.">
+      <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14">
+        <div className="space-y-5 text-lg leading-8 text-muted">
           <p>
-            I&apos;m a backend engineer with 1+ year of experience building
-            production-grade systems and APIs with FastAPI, Django and
-            Java/Spring Boot, deploying cloud-hosted services and real-time data
-            pipelines. I work hands-on with REST API design, third-party
-            integrations (webhooks, idempotency, retries), PostgreSQL/MySQL,
-            Redis, Kafka, ClickHouse, AWS, Docker, Kubernetes and Nginx.
+            For the last year I&apos;ve been building production systems at TailNode: APIs that answer in under
+            50&nbsp;ms, an event pipeline moving half a million events a day, and the Docker, Kubernetes and Nginx
+            setup that keeps it all at 99.9% uptime.
           </p>
           <p>
-            I graduated from NIT Tiruchirappalli (B.Tech, ECE, 2025) and I&apos;m
-            strong in DSA and CS fundamentals. I write about databases,
-            distributed systems and Kubernetes on{" "}
-            <a href={links.medium} target="_blank" rel="noreferrer" className={inlineLink}>
-              Medium
-            </a>
-            , and my code lives on{" "}
-            <a href={links.github} target="_blank" rel="noreferrer" className={inlineLink}>
-              GitHub
-            </a>
-            .
+            I care about clean API design, reliable integrations (webhooks, idempotency, retries) and knowing
+            what my database is really doing. I write about that on{" "}
+            <a href={links.medium} target="_blank" rel="noreferrer" className={inlineLink}>Medium</a>, and keep my
+            problem-solving sharp with competitive programming: over 1,000 problems solved.
           </p>
+
+          <ul className="grid gap-3 pt-2 sm:grid-cols-3">
+            {ratings.map((r) => (
+              <li key={r.site}>
+                <a
+                  href={r.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group block rounded-2xl border border-line bg-surface p-4 shadow-card transition hover:-translate-y-0.5 hover:border-accent/40"
+                >
+                  <span className="flex items-center justify-between text-sm font-medium text-subtle">
+                    <span className="flex items-center gap-2">
+                      <span className={`h-2 w-2 rounded-full ${r.color}`} aria-hidden="true" />
+                      {r.site}
+                    </span>
+                    <ArrowUpRightIcon className="text-subtle transition-colors group-hover:text-accent" />
+                  </span>
+                  <span className="mt-2 block font-display text-2xl font-extrabold text-fg">{r.rating}</span>
+                  <span className="block text-sm text-subtle">{r.badge}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <ul className="space-y-3 self-start" aria-label="Competitive programming">
-          {achievements.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-4 transition-colors hover:border-accent/40"
-              >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
-                  <TrophyIcon />
-                </span>
-                <span>
-                  <span className="block font-mono text-xs uppercase tracking-[0.14em] text-subtle">
-                    {item.label}
-                  </span>
-                  <span className="mt-0.5 block font-semibold text-fg group-hover:text-accent">
-                    {item.value}
-                  </span>
-                  <span className="mt-0.5 block text-sm text-muted">{item.detail}</span>
-                </span>
-              </a>
-            </li>
+        <dl className="self-start overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-card">
+          {facts.map((f) => (
+            <div key={f.label} className="grid grid-cols-[6.5rem_1fr] gap-3 border-b border-line px-5 py-4 last:border-b-0">
+              <dt className="text-sm font-medium text-subtle">{f.label}</dt>
+              <dd className="font-medium text-fg">{f.value}</dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </div>
     </Section>
   );

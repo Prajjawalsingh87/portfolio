@@ -31,7 +31,7 @@ function Navbar() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
         scrolled || open
-          ? "border-line bg-ink/85 backdrop-blur-md"
+          ? "border-line bg-surface/85 backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -42,11 +42,11 @@ function Navbar() {
         <a
           href="#home"
           onClick={close}
-          className="flex items-center gap-2.5 font-semibold tracking-tight text-fg"
+          className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-fg"
         >
           <span
             aria-hidden="true"
-            className="grid h-8 w-8 place-items-center rounded-lg bg-accent font-mono text-sm font-bold text-ink"
+            className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-violet-600 font-display text-sm font-bold text-on-accent"
           >
             PS
           </span>
@@ -58,7 +58,7 @@ function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-raised hover:text-fg"
+                className="rounded-lg px-3 py-2 text-[0.94rem] font-medium text-muted transition-colors hover:bg-raised hover:text-fg"
               >
                 {link.label}
               </a>
@@ -68,13 +68,10 @@ function Navbar() {
 
         <div className="flex items-center gap-2">
           <a
-            href={links.github}
-            target="_blank"
-            rel="noreferrer"
-            className="hidden items-center gap-2 rounded-lg border border-line-strong px-3.5 py-2 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent sm:inline-flex"
+            href="#contact"
+            className="hidden items-center rounded-xl bg-fg px-4 py-2.5 text-sm font-semibold text-surface transition-colors hover:bg-accent sm:inline-flex"
           >
-            <GitHubIcon width={16} height={16} />
-            GitHub
+            Get in touch
           </a>
           <button
             type="button"

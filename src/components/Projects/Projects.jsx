@@ -8,7 +8,7 @@ const projects = [
   {
     title: "Orbit — Social Media App",
     description:
-      "Full-stack social platform with auth, OTP signup, posts, likes, follows and feeds. REST APIs power a responsive React frontend; MongoDB compound indexes cut average feed query time by 70%.",
+      "Full-stack social app: OTP signup, posts, likes, follows and a feed. MongoDB compound indexes cut feed queries by 70%.",
     tags: ["React", "Node.js", "Express", "MongoDB"],
     live: "https://social-media-application-7gjn.vercel.app",
     repo: gh("Social-media-application"),
@@ -16,7 +16,7 @@ const projects = [
   {
     title: "SnapLink — URL Shortener",
     description:
-      "Base62 short links with custom aliases, expiry and click analytics. Redirects are cached in Redis; PostgreSQL stores per-click data. Dockerized with docker-compose.",
+      "Short links with custom aliases, expiry and click analytics. Redis caches redirects; PostgreSQL stores every click.",
     tags: ["FastAPI", "PostgreSQL", "Redis", "Docker"],
     live: "https://url-shortner-1-xyqj.onrender.com",
     repo: gh("URL_Shortner"),
@@ -24,7 +24,7 @@ const projects = [
   {
     title: "Quiz Competition Platform",
     description:
-      "Timed quiz game: play solo or create and join rooms by code, with countdowns, streaks, speed bonuses, an answer review and saved history.",
+      "Timed quiz game with solo play, join-by-code rooms, streaks, speed bonuses and an answer review.",
     tags: ["React", "React Router", "Tailwind CSS"],
     live: "https://quiz-competition-plum.vercel.app",
     repo: gh("Quiz-Competition"),
@@ -32,7 +32,7 @@ const projects = [
   {
     title: "File Agent",
     description:
-      "LLM agent that plans and runs file operations through a tool registry, exposed as a CLI and a FastAPI service, with health checks and Docker.",
+      "An LLM agent that plans and runs file operations through tools, served as a CLI and a FastAPI API.",
     tags: ["Python", "FastAPI", "LLM", "Groq"],
     live: "https://file-agent.onrender.com",
     repo: gh("FILE_AGENT"),
@@ -40,7 +40,7 @@ const projects = [
   {
     title: "FX Live — Currency Converter",
     description:
-      "Real-time converter for 200+ currencies, crypto and metals: converts as you type, searchable picker with flags, popular rates and a fallback rate source.",
+      "Live rates for 200+ currencies and crypto. Converts as you type, with a searchable picker and popular rates.",
     tags: ["React", "Vite", "Tailwind CSS", "REST API"],
     live: "https://real-time-currencyconverter.vercel.app",
     repo: gh("Real-time-currencyconverter"),
@@ -48,7 +48,7 @@ const projects = [
   {
     title: "Segment Tree Solutions",
     description:
-      "Organised C++ solutions for the ITMO Academy segment tree course plus CSES, Codeforces and AtCoder problems, with a key idea per problem and CI builds.",
+      "C++ solutions for the ITMO segment tree course, CSES, Codeforces and AtCoder, each with its key idea.",
     tags: ["C++", "DSA", "Segment Tree"],
     repo: gh("segment-treeITMO-solutions"),
   },
@@ -62,19 +62,21 @@ const miniApps = [
   { title: "System Design in C++", repo: gh("system_design") },
 ];
 
-const button =
-  "inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors";
+const tints = ["bg-blue-600", "bg-violet-600", "bg-emerald-600", "bg-amber-500", "bg-sky-600", "bg-rose-600"];
 
-function ProjectLinks({ live, repo, title }) {
+const button =
+  "inline-flex items-center gap-1.5 rounded-lg border px-3.5 py-2 text-sm font-semibold transition-colors";
+
+function ProjectLinks({ live, repo, title, compact = false }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className={`flex gap-2 ${compact ? "shrink-0" : "flex-wrap"}`}>
       {live && (
         <a
           href={live}
           target="_blank"
           rel="noreferrer"
           aria-label={`${title} live demo`}
-          className={`${button} border-accent/40 bg-accent-soft text-accent hover:bg-accent hover:text-ink`}
+          className={`${button} border-accent bg-accent text-on-accent hover:bg-accent-strong`}
         >
           <GlobeIcon />
           Live
@@ -85,7 +87,7 @@ function ProjectLinks({ live, repo, title }) {
         target="_blank"
         rel="noreferrer"
         aria-label={`${title} source code on GitHub`}
-        className={`${button} border-line-strong text-fg hover:border-accent hover:text-accent`}
+        className={`${button} border-line-strong bg-surface text-fg hover:border-fg`}
       >
         <GitHubIcon width={16} height={16} />
         GitHub
@@ -99,7 +101,7 @@ function Projects() {
     <Section
       id="projects"
       eyebrow="Projects"
-      title="Selected work."
+      title="Things I've built."
       action={
         <a
           href={links.github}
@@ -115,14 +117,19 @@ function Projects() {
       <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => (
           <li key={project.title}>
-            <article className="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-black/40">
-              <span className="font-mono text-sm text-subtle">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="mt-4 text-xl font-semibold tracking-tight text-fg">{project.title}</h3>
-              <p className="mt-3 flex-1 leading-7 text-muted">{project.description}</p>
+            <article className="shadow-card hover:shadow-card-hover flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1">
+              <span
+                aria-hidden="true"
+                className={`grid h-11 w-11 place-items-center rounded-xl font-display text-lg font-bold text-on-accent ${tints[index % tints.length]}`}
+              >
+                {project.title[0]}
+              </span>
+              <h3 className="mt-5 text-xl font-bold tracking-tight text-fg">{project.title}</h3>
+              <p className="mt-2 flex-1 leading-7 text-muted">{project.description}</p>
 
               <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
                 {project.tags.map((tag) => (
-                  <li key={tag} className="rounded-md bg-accent-soft px-2.5 py-1 font-mono text-xs text-accent">
+                  <li key={tag} className="rounded-md bg-raised px-2.5 py-1 text-xs font-semibold text-muted">
                     {tag}
                   </li>
                 ))}
@@ -137,15 +144,15 @@ function Projects() {
       </ul>
 
       <div className="mt-10">
-        <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-subtle">More builds</h3>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <h3 className="font-display text-lg font-bold text-fg">More small builds</h3>
+        <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {miniApps.map((app) => (
             <li
               key={app.title}
-              className="flex items-center justify-between gap-3 rounded-xl border border-line bg-surface px-4 py-3"
+              className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-card"
             >
-              <span className="font-medium text-fg">{app.title}</span>
-              <ProjectLinks {...app} />
+              <span className="font-semibold text-fg">{app.title}</span>
+              <ProjectLinks {...app} compact />
             </li>
           ))}
         </ul>

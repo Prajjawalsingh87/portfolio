@@ -1,164 +1,130 @@
 import { useState } from "react";
 import { links, profile } from "../../data/profile";
-import { ArrowUpRightIcon, DownloadIcon, LinkedInIcon, PinIcon } from "../Icons/Icons";
-
-const focus = [
-  "FastAPI",
-  "Django",
-  "Spring Boot",
-  "Kafka → ClickHouse",
-  "PostgreSQL",
-  "Redis",
-  "AWS",
-  "Docker",
-  "Kubernetes",
-  "Helm",
-  "Nginx",
-];
+import { ArrowUpRightIcon, DownloadIcon, GitHubIcon, LinkedInIcon, MediumIcon, PinIcon } from "../Icons/Icons";
 
 const stats = [
-  { label: "Experience", value: "1+ year" },
-  { label: "LeetCode", value: "2130 · Guardian" },
-  { label: "Education", value: "NIT Trichy" },
-  { label: "DSA solved", value: "1,000+" },
+  { value: "1+ yr", label: "building production backends" },
+  { value: "500K+", label: "events/day through my Kafka → ClickHouse pipeline" },
+  { value: "2130", label: "LeetCode rating · Guardian, top 1.92%" },
+  { value: "1,000+", label: "DSA problems solved" },
 ];
 
-function Avatar() {
+const socials = [
+  { label: "GitHub", href: links.github, Icon: GitHubIcon },
+  { label: "LinkedIn", href: links.linkedin, Icon: LinkedInIcon },
+  { label: "Medium", href: links.medium, Icon: MediumIcon },
+];
+
+function Photo() {
   const [failed, setFailed] = useState(false);
 
-  if (failed) {
-    return (
-      <div
-        aria-hidden="true"
-        className="grid h-14 w-14 place-items-center rounded-xl bg-accent-soft font-mono text-lg font-bold text-accent"
-      >
-        PS
-      </div>
-    );
-  }
-
   return (
-    <img
-      src={profile.avatar}
-      alt={`${profile.name} GitHub avatar`}
-      width="56"
-      height="56"
-      onError={() => setFailed(true)}
-      className="h-14 w-14 rounded-xl border border-line-strong object-cover"
-    />
+    <div className="relative mx-auto w-full max-w-[15rem] sm:max-w-[22rem]">
+      <div aria-hidden="true" className="absolute -inset-4 -z-10 rotate-3 rounded-[2.25rem] bg-accent/10" />
+      <div aria-hidden="true" className="absolute -inset-4 -z-10 -rotate-2 rounded-[2.25rem] border border-accent/20" />
+      {failed ? (
+        <div className="grid aspect-square w-full place-items-center rounded-[2rem] bg-surface text-6xl font-bold text-accent shadow-card">
+          PS
+        </div>
+      ) : (
+        <img
+          src={profile.avatar}
+          alt={profile.name}
+          width="352"
+          height="352"
+          onError={() => setFailed(true)}
+          className="aspect-square w-full rounded-[2rem] border-4 border-surface object-cover shadow-card"
+        />
+      )}
+      <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-fg shadow-card">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+        </span>
+        Backend Engineer at {profile.company}
+      </div>
+    </div>
   );
 }
 
 function Hero() {
   return (
     <section id="home" className="relative isolate overflow-hidden">
-      <div aria-hidden="true" className="bg-grid absolute inset-0 -z-10" />
+      <div aria-hidden="true" className="bg-dots absolute inset-0 -z-10" />
       <div
         aria-hidden="true"
-        className="absolute -top-40 left-1/2 -z-10 h-[28rem] w-[min(56rem,100%)] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"
+        className="absolute -top-48 right-[-10%] -z-10 h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-3xl"
       />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 pb-20 pt-14 md:px-8 md:pb-28 md:pt-24 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="mx-auto grid max-w-6xl items-center gap-16 px-5 pb-16 pt-14 md:px-8 md:pt-20 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/80 px-3 py-1 text-sm text-muted">
-            <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-            {profile.role} · Currently at {profile.company}
+          <p className="inline-flex items-center gap-1.5 text-sm font-medium text-subtle">
+            <PinIcon />
+            {profile.location}
           </p>
-
-          <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-tight text-fg text-balance sm:text-5xl md:text-6xl">
-            Hi, I&apos;m {profile.name}.{" "}
-            <span className="text-muted">
-              I build scalable APIs, real-time data pipelines and cloud-native services.
+          <h1 className="mt-4 text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-fg text-balance sm:text-6xl">
+            Hi, I&apos;m Prajjawal.
+            <span className="mt-2 block bg-gradient-to-r from-accent to-violet-600 bg-clip-text text-transparent">
+              I build fast APIs and real-time data pipelines.
             </span>
           </h1>
-
-          <p className="mt-6 max-w-xl text-base leading-7 text-muted md:text-lg md:leading-8">
-            Backend engineer at {profile.company} working with FastAPI, Django and
-            Java/Spring Boot, Kafka and ClickHouse pipelines, and AWS, Docker and
-            Kubernetes in production.
+          <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
+            Backend engineer working with <strong className="font-semibold text-fg">FastAPI, Django and Spring Boot</strong>,
+            streaming data through <strong className="font-semibold text-fg">Kafka and ClickHouse</strong>, and shipping it
+            on <strong className="font-semibold text-fg">AWS, Docker and Kubernetes</strong>.
           </p>
 
-          <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-subtle">
-            <PinIcon />
-            Based in {profile.location}
-          </p>
-
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
               href="#projects"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 font-semibold text-ink transition-colors hover:bg-accent-strong"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 font-semibold text-on-accent shadow-lg shadow-accent/25 transition hover:-translate-y-0.5 hover:bg-accent-strong"
             >
-              View projects
+              View my work
+              <ArrowUpRightIcon />
             </a>
             <a
               href={profile.resume}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-line-strong px-5 py-3 font-semibold text-fg transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-line-strong bg-surface px-6 py-3.5 font-semibold text-fg transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
             >
               <DownloadIcon width={18} height={18} />
-              Resume
+              Download resume
             </a>
-            <a
-              href={links.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold text-muted transition-colors hover:text-fg"
-            >
-              <LinkedInIcon width={18} height={18} />
-              LinkedIn
-              <ArrowUpRightIcon />
-            </a>
-          </div>
-        </div>
-
-        <aside
-          aria-label="Profile summary"
-          className="relative rounded-[var(--radius-card)] border border-line bg-surface/90 shadow-2xl shadow-black/40"
-        >
-          <div className="flex items-center gap-2 border-b border-line px-5 py-3">
-            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-line-strong" aria-hidden="true" />
-            <span className="ml-2 font-mono text-xs text-subtle">profile.json</span>
-          </div>
-
-          <div className="p-6">
-            <div className="flex items-center gap-4">
-              <Avatar />
-              <div>
-                <p className="font-semibold text-fg">{profile.name}</p>
-                <p className="text-sm text-muted">{profile.role}</p>
-              </div>
-            </div>
-
-            <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-subtle">
-              Current focus
-            </p>
-            <p className="mt-2 text-xl font-semibold text-fg">
-              Backend systems, data pipelines &amp; DevOps
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {focus.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-md border border-line bg-raised px-2.5 py-1 font-mono text-xs text-muted"
-                >
-                  {item}
+            <ul className="flex items-center gap-1 sm:ml-2">
+              {socials.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="grid h-11 w-11 place-items-center rounded-xl text-muted transition-colors hover:bg-surface hover:text-accent"
+                  >
+                    <Icon width={20} height={20} />
+                  </a>
                 </li>
               ))}
             </ul>
-
-            <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line">
-              {stats.map((stat) => (
-                <div key={stat.label} className="bg-raised p-4">
-                  <dt className="text-xs text-subtle">{stat.label}</dt>
-                  <dd className="mt-1 font-semibold text-fg">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
-        </aside>
+        </div>
+
+        <Photo />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8">
+        <dl className="grid grid-cols-2 overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-card lg:grid-cols-4">
+          {stats.map((stat, i) => (
+            <div
+              key={stat.value}
+              className={`p-5 md:p-6 ${i % 2 ? "border-l border-line" : ""} ${i > 1 ? "border-t border-line lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}
+            >
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="font-display text-3xl font-extrabold tracking-tight text-fg md:text-4xl">{stat.value}</dd>
+              <dd className="mt-1 text-sm leading-5 text-subtle">{stat.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
