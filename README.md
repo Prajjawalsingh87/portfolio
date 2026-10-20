@@ -13,13 +13,18 @@ My personal portfolio: who I am, the backend stack I work with, selected project
 - **Projects**: selected work with **Live** and **GitHub** links, plus smaller builds
 - **DevOps & Cloud**: Kubernetes lab, DevOps roadmap, production work and toolchain
 - **Writing**: latest articles from [Medium](https://medium.com/@singhprajjawal87)
-- **Contact**: email, LinkedIn, GitHub, Medium, LeetCode, CodeChef, Codeforces and a resume download
+- **Contact**: email (with a one-click **Copy email** button), LinkedIn, GitHub, Medium, LeetCode, CodeChef, Codeforces and a resume download
 
-Light theme, sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
+## 🔎 Features
+
+- **Search the whole site**: press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>⌘</kbd>+<kbd>K</kbd> on Mac), <kbd>/</kbd>, or the search button in the navbar. It finds sections, experience points, skills, projects (titles, descriptions, tags and links), DevOps work and Medium articles. Results are ranked by relevance, matched words are highlighted, and typos or partial words still work (`kubernets`, `postgre`). Use <kbd>↑</kbd> <kbd>↓</kbd> to move, <kbd>Enter</kbd> to jump to the item (projects, articles and profiles also open in a new tab) and <kbd>Esc</kbd> to close. Built with [MiniSearch](https://github.com/lucaong/minisearch), fully in the browser.
+- **Light and dark theme**: follows your system setting by default; the moon/sun button in the navbar switches it and remembers your choice.
+- **Filter projects** by name, description or technology.
+- Sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
 
 ## 🛠 Tech Stack
 
-React 19 · Vite · Tailwind CSS 4
+React 19 · Vite · Tailwind CSS 4 · MiniSearch
 
 ## ▶️ Run locally
 
@@ -32,16 +37,11 @@ npm run dev        # http://localhost:5173
 
 ## ✏️ Updating content
 
-Profile links live in [`src/data/profile.js`](src/data/profile.js); each section is a component in [`src/components/`](src/components/) with its content (projects, skills, articles) at the top of the file. The resume served by the site is [`public/resume.pdf`](public/resume.pdf).
+Profile links live in [`src/data/profile.js`](src/data/profile.js) and section content (experience, skills, projects, DevOps work, articles) lives in [`src/data/content.js`](src/data/content.js). Each section is a component in [`src/components/`](src/components/). The site search is built from the same data, so anything added there is searchable automatically. The resume served by the site is [`public/resume.pdf`](public/resume.pdf).
 
 ## 🚀 Deployment
 
 Deployed on **Vercel**; every push to `main` deploys to production.
-
-
-## October 2026 improvements
-
-Search featured projects by name, description or technology. The site uses a consistent light indigo/slate visual style, accessible focus states and reduced-motion support.
 
 
 ## Terminal verification and deployment

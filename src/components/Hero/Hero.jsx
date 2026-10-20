@@ -64,7 +64,7 @@ function Hero() {
           </p>
           <h1 className="mt-4 text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-fg text-balance sm:text-6xl">
             Hi, I&apos;m Prajjawal.
-            <span className="mt-2 block bg-gradient-to-r from-accent to-violet-600 bg-clip-text text-transparent">
+            <span className="mt-2 block bg-gradient-to-r from-accent to-violet-600 bg-clip-text dark:to-violet-400 text-transparent">
               I build fast APIs and real-time data pipelines.
             </span>
           </h1>

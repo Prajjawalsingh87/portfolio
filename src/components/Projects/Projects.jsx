@@ -2,66 +2,7 @@ import { useState } from "react";
 import { links } from "../../data/profile";
 import { ArrowUpRightIcon, GitHubIcon, GlobeIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
-
-const gh = (repo) => `https://github.com/Prajjawalsingh87/${repo}`;
-
-const projects = [
-  {
-    title: "Orbit — Social Media App",
-    description:
-      "Full-stack social app: OTP signup, posts, likes, follows and a feed. MongoDB compound indexes cut feed queries by 70%.",
-    tags: ["React", "Node.js", "Express", "MongoDB"],
-    live: "https://social-media-application-7gjn.vercel.app",
-    repo: gh("Social-media-application"),
-  },
-  {
-    title: "SnapLink — URL Shortener",
-    description:
-      "Short links with custom aliases, expiry and click analytics. Redis caches redirects; PostgreSQL stores every click.",
-    tags: ["FastAPI", "PostgreSQL", "Redis", "Docker"],
-    live: "https://url-shortner-1-xyqj.onrender.com",
-    repo: gh("URL_Shortner"),
-  },
-  {
-    title: "Quiz Competition Platform",
-    description:
-      "Timed solo quizzes with topic selection, answer explanations and results saved on your device.",
-    tags: ["React", "React Router", "Tailwind CSS"],
-    live: "https://quiz-competition-plum.vercel.app",
-    repo: gh("Quiz-Competition"),
-  },
-  {
-    title: "File Agent",
-    description:
-      "An LLM agent that plans and runs file operations through tools, served as a CLI and a FastAPI API.",
-    tags: ["Python", "FastAPI", "LLM", "Groq"],
-    live: "https://file-agent.onrender.com",
-    repo: gh("FILE_AGENT"),
-  },
-  {
-    title: "FX Live — Currency Converter",
-    description:
-      "Live rates for 200+ currencies and crypto. Converts as you type, with a searchable picker and popular rates.",
-    tags: ["React", "Vite", "Tailwind CSS", "REST API"],
-    live: "https://real-time-currencyconverter.vercel.app",
-    repo: gh("Real-time-currencyconverter"),
-  },
-  {
-    title: "Segment Tree Solutions",
-    description:
-      "C++ solutions for the ITMO segment tree course, CSES, Codeforces and AtCoder, each with its key idea.",
-    tags: ["C++", "DSA", "Segment Tree"],
-    repo: gh("segment-treeITMO-solutions"),
-  },
-];
-
-const miniApps = [
-  { title: "Todo", live: "https://todo-chi-vert.vercel.app", repo: gh("TODO") },
-  { title: "Password Generator", live: "https://passwordgenerator-three-steel.vercel.app", repo: gh("passwordgenerator") },
-  { title: "Color Playground", live: "https://bacgroundcolorchnager.vercel.app", repo: gh("bacgroundcolorchnager") },
-  { title: "LLD in C++", repo: gh("lld-learning") },
-  { title: "System Design in C++", repo: gh("system_design") },
-];
+import { miniApps, projects, slug } from "../../data/content";
 
 const tints = ["bg-blue-600", "bg-violet-600", "bg-emerald-600", "bg-amber-500", "bg-sky-600", "bg-rose-600"];
 
@@ -124,7 +65,7 @@ function Projects() {
       {visibleProjects.length === 0 && <p className="studio-status">No matching projects. Try React, Python, or C++.</p>}
       <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {visibleProjects.map((project, index) => (
-          <li key={project.title}>
+          <li key={project.title} id={`project-${slug(project.title)}`}>
             <article className="shadow-card hover:shadow-card-hover flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1">
               <span
                 aria-hidden="true"
@@ -157,6 +98,7 @@ function Projects() {
           {miniApps.map((app) => (
             <li
               key={app.title}
+              id={`project-${slug(app.title)}`}
               className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-card"
             >
               <span className="font-semibold text-fg">{app.title}</span>

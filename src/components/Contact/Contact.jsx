@@ -1,8 +1,12 @@
-import { links, profile } from "../../data/profile";
+import { useEffect, useRef, useState } from "react";
+import { contactProfiles } from "../../data/content";
+import { profile } from "../../data/profile";
 import {
   ArrowUpRightIcon,
   ChartIcon,
+  CheckIcon,
   CodeIcon,
+  CopyIcon,
   DownloadIcon,
   GitHubIcon,
   LinkedInIcon,
@@ -10,20 +14,54 @@ import {
   MediumIcon,
 } from "../Icons/Icons";
 
-const profiles = [
-  { label: "LinkedIn", handle: "Prajjawal Singh", href: links.linkedin, Icon: LinkedInIcon },
-  { label: "GitHub", handle: "Prajjawalsingh87", href: links.github, Icon: GitHubIcon },
-  { label: "Medium", handle: "@singhprajjawal87", href: links.medium, Icon: MediumIcon },
-  { label: "LeetCode", handle: "sprajjawalsingh", href: links.leetcode, Icon: CodeIcon },
-  { label: "CodeChef", handle: "singhprajjawal", href: links.codechef, Icon: ChartIcon },
-  { label: "Codeforces", handle: "singhprajjawal87", href: links.codeforces, Icon: ChartIcon },
-];
+const icons = {
+  LinkedIn: LinkedInIcon,
+  GitHub: GitHubIcon,
+  Medium: MediumIcon,
+  LeetCode: CodeIcon,
+  CodeChef: ChartIcon,
+  Codeforces: ChartIcon,
+};
+
+const profiles = contactProfiles.map((p) => ({ ...p, Icon: icons[p.label] }));
+
+// Copies the email address and shows a short "Copied" confirmation.
+function CopyEmailButton() {
+  const [status, setStatus] = useState("idle");
+  const timer = useRef();
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setStatus("copied");
+    } catch {
+      setStatus("failed");
+    }
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setStatus("idle"), 2000);
+  };
+
+  const label = { idle: "Copy email", copied: "Copied!", failed: "Press Ctrl+C to copy" }[status];
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 px-6 py-3.5 font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/60"
+    >
+      {status === "copied" ? <CheckIcon width={18} height={18} /> : <CopyIcon width={18} height={18} />}
+      <span aria-live="polite">{label}</span>
+    </button>
+  );
+}
 
 function Contact() {
   return (
     <section id="contact" aria-labelledby="contact-heading" className="py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="relative isolate overflow-hidden rounded-[2rem] bg-fg px-6 py-12 text-center md:px-12 md:py-16">
+        <div className="relative isolate overflow-hidden rounded-[2rem] bg-slate-900 px-6 dark:bg-surface dark:ring-1 dark:ring-line py-12 text-center md:px-12 md:py-16">
           <div aria-hidden="true" className="absolute -top-24 left-1/2 -z-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-accent/40 blur-3xl" />
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-300">Contact</p>
           <h2 id="contact-heading" className="mx-auto mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-white text-balance md:text-5xl">
@@ -35,11 +73,12 @@ function Contact() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-fg transition hover:-translate-y-0.5 hover:bg-blue-50"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-blue-50"
             >
               <MailIcon width={18} height={18} />
               {profile.email}
             </a>
+            <CopyEmailButton />
             <a
               href={profile.resume}
               target="_blank"

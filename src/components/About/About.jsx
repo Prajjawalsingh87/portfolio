@@ -1,22 +1,9 @@
 import { links } from "../../data/profile";
 import { ArrowUpRightIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
+import { facts, ratings } from "../../data/content";
 
 const inlineLink = "font-semibold text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent";
-
-const facts = [
-  { label: "Role", value: "Backend Engineer, TailNode" },
-  { label: "Education", value: "B.Tech ECE, NIT Trichy (2021–25)" },
-  { label: "Core stack", value: "Python · Java · Django · FastAPI · gRPC" },
-  { label: "Data", value: "Kafka · WarpStream · CDC · ClickHouse · PostgreSQL" },
-  { label: "Infra", value: "AWS (S3, Route 53) · Nginx · Kubernetes" },
-];
-
-const ratings = [
-  { site: "LeetCode", rating: "2130", badge: "Guardian · top 1.92%", href: links.leetcode, color: "bg-amber-500" },
-  { site: "CodeChef", rating: "1922", badge: "4★ peak", href: links.codechef, color: "bg-orange-700" },
-  { site: "Codeforces", rating: "~1550", badge: "Specialist", href: links.codeforces, color: "bg-cyan-600" },
-];
 
 function About() {
   return (

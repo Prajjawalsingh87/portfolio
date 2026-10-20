@@ -1,35 +1,6 @@
 import { ArrowUpRightIcon, GitHubIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
-
-const work = [
-  {
-    title: "Kubernetes Production Lab",
-    description:
-      "A FastAPI + PostgreSQL app on my own kubeadm cluster on EC2, with Kustomize overlays, Ingress, health probes, ECR images and CI that validates every manifest.",
-    tags: ["Kubernetes", "Kustomize", "Docker", "AWS EC2", "ECR", "GitHub Actions"],
-    href: "https://github.com/Prajjawalsingh87/kubernetes-lab",
-  },
-  {
-    title: "DevOps Roadmap",
-    description:
-      "My learning-in-public roadmap: AWS IAM and NGINX guides so far, then Linux, networking, containers, Kubernetes, CI/CD and observability.",
-    tags: ["AWS IAM", "NGINX", "Linux", "CI/CD"],
-    href: "https://github.com/Prajjawalsingh87/devops-roadmap",
-  },
-  {
-    title: "In production at TailNode",
-    description:
-      "Services on Kubernetes via Helm and Ingress behind load balancers (99.9% uptime), Nginx as reverse proxy, Route 53 hosted zones for DNS, a CDN that cut asset costs by 90%, S3 archival that cut storage cost by 90%+, and a Kafka → WarpStream move that cut streaming cost by 60–70%.",
-    tags: ["Helm", "Ingress", "Nginx", "Route 53", "CDN", "S3 Glacier", "WarpStream"],
-  },
-];
-
-const toolchain = [
-  { title: "Cloud", items: ["AWS EKS", "RDS", "S3 & Glacier", "Route 53", "Secrets Manager", "EC2", "CDN"] },
-  { title: "Containers", items: ["Docker", "docker-compose", "Kubernetes", "Helm", "Ingress"] },
-  { title: "Delivery", items: ["GitHub Actions", "CI/CD", "Nginx", "Load Balancer"] },
-  { title: "Observability", items: ["OpenTelemetry", "SigNoz", "Grafana", "Tracing", "Metrics"] },
-];
+import { devopsWork, slug, toolchain } from "../../data/content";
 
 function DevOps() {
   return (
@@ -41,8 +12,8 @@ function DevOps() {
       className="bg-surface"
     >
       <ul className="grid gap-5 lg:grid-cols-3">
-        {work.map((item) => (
-          <li key={item.title}>
+        {devopsWork.map((item) => (
+          <li key={item.title} id={`devops-${slug(item.title)}`}>
             <article className="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-ink p-6">
               <h3 className="text-xl font-bold tracking-tight text-fg">{item.title}</h3>
               <p className="mt-3 flex-1 leading-7 text-muted">{item.description}</p>
@@ -72,7 +43,7 @@ function DevOps() {
 
       <div className="mt-5 grid gap-6 rounded-[var(--radius-card)] border border-line bg-ink p-6 sm:grid-cols-2 lg:grid-cols-4">
         {toolchain.map((group) => (
-          <div key={group.title}>
+          <div key={group.title} id={`tools-${slug(group.title)}`}>
             <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-subtle">{group.title}</h3>
             <ul className="mt-3 flex flex-wrap gap-2">
               {group.items.map((tool) => (

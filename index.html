@@ -10,6 +10,17 @@
     />
     <meta name="author" content="Prajjawal Singh" />
     <meta name="theme-color" content="#f7f8fb" />
+    <script>
+      // Apply the saved or system theme before the page paints, so there is no flash.
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem("theme"); } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
