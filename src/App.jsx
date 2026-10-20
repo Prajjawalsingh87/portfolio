@@ -6,6 +6,7 @@ import Experience from "./components/Experience/Experience";
 import Skills from "./components/Skills/Skills";
 import Projects from "./components/Projects/Projects";
 import DevOps from "./components/DevOps/DevOps";
+import GitHub from "./components/GitHub/GitHub";
 import Writing from "./components/Writing/Writing";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
@@ -46,6 +47,7 @@ function App() {
         <Experience />
         <Skills />
         <Projects />
+        <GitHub />
         <DevOps />
         <Writing />
         <Contact />

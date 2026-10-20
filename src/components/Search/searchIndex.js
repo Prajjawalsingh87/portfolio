@@ -1,6 +1,5 @@
 import MiniSearch from "minisearch";
 import {
-  articles,
   contactProfiles,
   devopsWork,
   experience,
@@ -23,12 +22,13 @@ const sections = [
   { id: "experience", title: "Experience", text: `What I've shipped at work. ${profile.role} at ${profile.company}, Jul 2025 – Present.` },
   { id: "skills", title: "Skills", text: "Tools I use every day: languages, frameworks, databases, streaming, cloud and DevOps." },
   { id: "projects", title: "Projects", text: "Things I've built, with live demos and GitHub source code." },
+  { id: "github", title: "GitHub activity", text: "Live from GitHub: recently updated repositories and the languages I use most." },
   { id: "devops", title: "DevOps & Cloud", text: "I ship and run what I build. Containers, clusters, pipelines and dashboards." },
   { id: "writing", title: "Writing", text: "I write about how systems really work. Articles on Medium." },
   { id: "contact", title: "Contact", text: `Let's build something reliable together. Email ${profile.email} or download the resume.` },
 ];
 
-function buildDocuments() {
+function buildDocuments(articles) {
   const docs = [];
   const add = (doc) => docs.push({ ...doc, id: `${doc.kind}:${docs.length}`, tags: doc.tags ?? "" });
 
@@ -113,7 +113,8 @@ function buildDocuments() {
     add({
       kind: "Article",
       title: a.title,
-      text: `${a.date} · Medium`,
+      text: [a.date && `${a.date} · Medium`, a.summary].filter(Boolean).join(" · "),
+      tags: (a.tags ?? []).join(" "),
       section: "writing",
       target: `article-${slug(a.title)}`,
       url: a.href,
@@ -131,7 +132,7 @@ function buildDocuments() {
 
 export const sectionDocs = sections;
 
-export function createSearch() {
+export function createSearch(articles) {
   const index = new MiniSearch({
     fields: ["title", "text", "tags", "links", "kind"],
     storeFields: ["kind", "title", "text", "section", "target", "url"],
@@ -141,7 +142,7 @@ export function createSearch() {
       fuzzy: 0.2,
     },
   });
-  index.addAll(buildDocuments());
+  index.addAll(buildDocuments(articles));
 
   // Prefer results that match every word; fall back to any word.
   return (query) => {

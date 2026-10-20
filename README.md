@@ -11,13 +11,15 @@ My personal portfolio: who I am, the backend stack I work with, selected project
 - **Experience**: Backend Engineer at TailNode (Jul 2025 – present)
 - **Skills**: languages, Java & frameworks, backend & APIs, integrations, databases, messaging, cloud & DevOps, observability
 - **Projects**: selected work with **Live** and **GitHub** links, plus smaller builds
+- **GitHub (live)**: my most recently updated public repos (description, language, stars, last update), totals and top languages, loaded from the GitHub API
 - **DevOps & Cloud**: Kubernetes lab, DevOps roadmap, production work and toolchain
-- **Writing**: latest articles from [Medium](https://medium.com/@singhprajjawal87)
+- **Writing**: my latest [Medium](https://medium.com/@singhprajjawal87) posts, loaded automatically from the RSS feed (title, date, short summary and cover image), with a built-in list as a fallback
 - **Contact**: email (with a one-click **Copy email** button), LinkedIn, GitHub, Medium, LeetCode, CodeChef, Codeforces and a resume download
 
 ## 🔎 Features
 
 - **Search the whole site**: press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>⌘</kbd>+<kbd>K</kbd> on Mac), <kbd>/</kbd>, or the search button in the navbar. It finds sections, experience points, skills, projects (titles, descriptions, tags and links), DevOps work and Medium articles. Results are ranked by relevance, matched words are highlighted, and typos or partial words still work (`kubernets`, `postgre`). Use <kbd>↑</kbd> <kbd>↓</kbd> to move, <kbd>Enter</kbd> to jump to the item (projects, articles and profiles also open in a new tab) and <kbd>Esc</kbd> to close. Built with [MiniSearch](https://github.com/lucaong/minisearch), fully in the browser.
+- **Live data with a safety net**: two small Vercel functions fetch GitHub and Medium on the server and cache the result at the edge for an hour, so the page stays fast and well under GitHub's rate limit. While loading, the page shows placeholders. If a fetch fails, the GitHub section shows a link to the profile and Writing falls back to the built-in list. New Medium posts also appear in search.
 - **Light and dark theme**: follows your system setting by default; the moon/sun button in the navbar switches it and remembers your choice.
 - **Filter projects** by name, description or technology.
 - Sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
@@ -26,13 +28,23 @@ My personal portfolio: who I am, the backend stack I work with, selected project
 
 React 19 · Vite · Tailwind CSS 4 · MiniSearch
 
+## ⚙️ API routes
+
+| Route | Source | Returns |
+| --- | --- | --- |
+| [`/api/github`](api/github.js) | GitHub REST API (`/users/Prajjawalsingh87` and its repos) | profile totals, 6 most recently pushed repos, top languages |
+| [`/api/medium`](api/medium.js) | `https://medium.com/feed/@singhprajjawal87` | latest posts: title, link, date, summary, first image, tags |
+
+Both send `Cache-Control: s-maxage=3600, stale-while-revalidate=86400`, and errors return `502` with a short cache. No token is needed. Optionally set `GITHUB_TOKEN` in the Vercel project to raise the GitHub rate limit. `vercel.json` sends every path except `/assets/*` and `/api/*` to the single-page app.
+
 ## ▶️ Run locally
 
 ```bash
 git clone https://github.com/Prajjawalsingh87/portfolio.git
 cd portfolio
 npm install
-npm run dev        # http://localhost:5173
+npm run dev        # http://localhost:5173 (the /api routes work here too)
+npm test           # unit tests for the API routes, with fetch mocked
 ```
 
 ## ✏️ Updating content
@@ -49,6 +61,7 @@ Deployed on **Vercel**; every push to `main` deploys to production.
 ```bash
 npm ci
 npm run lint
+npm test
 npm run build
 npm run dev
 ```
