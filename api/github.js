@@ -1,4 +1,4 @@
-import { CACHE_ERROR, CACHE_OK, memoryCache, sendJson } from "./_lib/respond.js";
+import { cachedJson, memoryCache } from "./_lib/respond.js";
 
 const USER = "Prajjawalsingh87";
 const API = "https://api.github.com";
@@ -65,20 +65,25 @@ export function summarize(user, repos, { recentCount = 6, languageCount = 6 } = 
   };
 }
 
-export default async function handler(req, res) {
-  const cached = cache.get();
-  if (cached) return sendJson(res, 200, cached, CACHE_OK);
-
-  try {
-    const [user, repos] = await Promise.all([
-      getJson(`/users/${USER}`),
-      getJson(`/users/${USER}/repos?type=owner&sort=pushed&per_page=100`),
-    ]);
-    const body = summarize(user, repos);
-    cache.set(body);
-    sendJson(res, 200, body, CACHE_OK);
-  } catch (error) {
-    console.error("api/github:", error.message);
-    sendJson(res, 502, { error: "Could not load GitHub activity right now." }, CACHE_ERROR);
+// GitHub returns at most 100 repos per page.
+async function getAllRepos(maxPages = 5) {
+  const all = [];
+  for (let page = 1; page <= maxPages; page++) {
+    const batch = await getJson(`/users/${USER}/repos?type=owner&sort=pushed&per_page=100&page=${page}`);
+    all.push(...batch);
+    if (batch.length < 100) break;
   }
+  return all;
+}
+
+export default async function handler(req, res) {
+  await cachedJson(
+    res,
+    cache,
+    async () => {
+      const [user, repos] = await Promise.all([getJson(`/users/${USER}`), getAllRepos()]);
+      return summarize(user, repos);
+    },
+    "Could not load GitHub activity right now.",
+  );
 }

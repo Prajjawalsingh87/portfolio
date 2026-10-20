@@ -99,7 +99,7 @@ const feed = `<?xml version="1.0"?><rss><channel><title>x</title>
 <item>
   <title><![CDATA[Kafka vs WarpStream: same API]]></title>
   <link>https://medium.com/@singhprajjawal87/kafka-vs-warpstream-1db5?source=rss-abc</link>
-  <category><![CDATA[kafka]]></category><category><![CDATA[aws]]></category>
+  <category><![CDATA[kafka]]></category><category>CI &amp; CD</category>
   <pubDate>Sat, 17 Oct 2026 18:41:20 GMT</pubDate>
   <content:encoded><![CDATA[<p>Apache Kafka is how most companies move event data &amp; logs.</p><h3>How Kafka works</h3><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*a.png" /></figure><p>Second paragraph.</p>]]></content:encoded>
 </item>
@@ -122,7 +122,7 @@ test("medium: parses titles, clean links, dates, summaries and first image", asy
     date: "2026-10-17T18:41:20.000Z",
     summary: "Apache Kafka is how most companies move event data & logs. Second paragraph.",
     image: "https://cdn-images-1.medium.com/max/1024/1*a.png",
-    tags: ["kafka", "aws"],
+    tags: ["kafka", "CI & CD"],
   });
   assert.equal(posts[1].title, "PostgreSQL & memory");
   assert.equal(posts[1].date, null);
@@ -155,4 +155,54 @@ test("medium handler: caches successes and returns 502 when the feed fails", asy
   await failing({}, bad);
   console.error = errors;
   assert.equal(bad.statusCode, 502);
+});
+
+test("github: follows pagination when a page is full", async () => {
+  const many = Array.from({ length: 100 }, (_, i) => repo(`r${i}`, "Python", "2026-01-01T00:00:00Z"));
+  const pages = [];
+  globalThis.fetch = async (url) => {
+    const u = String(url);
+    if (!u.includes("/repos")) return Response.json(user);
+    const page = Number(new URL(u).searchParams.get("page"));
+    pages.push(page);
+    return Response.json(page === 1 ? many : [repo("last", "Go", "2026-02-01T00:00:00Z")]);
+  };
+  const { default: handler } = await import(`../api/github.js?t=${Date.now()}-pages`);
+  const res = mockRes();
+  await handler({}, res);
+  assert.deepEqual(pages, [1, 2]);
+  assert.equal(res.json().totals.reposCounted, 101);
+});
+
+test("failures cool down for a minute and serve the last good copy", async () => {
+  const { memoryCache, cachedJson } = await import("../api/_lib/respond.js");
+  const cache = memoryCache(0); // every success expires at once, to exercise the stale path
+  let calls = 0;
+  const errors = console.error;
+  console.error = () => {};
+
+  const ok = mockRes();
+  await cachedJson(ok, cache, async () => ({ n: ++calls }), "down");
+  assert.equal(ok.statusCode, 200);
+
+  const failing = async () => {
+    calls++;
+    throw new Error("upstream down");
+  };
+  const first = mockRes();
+  await cachedJson(first, cache, failing, "down");
+  assert.equal(first.statusCode, 200, "falls back to the last good copy");
+  assert.deepEqual(first.json(), { n: 1 });
+  assert.match(first.headers["cache-control"], /s-maxage=60/);
+
+  const second = mockRes();
+  await cachedJson(second, cache, failing, "down");
+  assert.equal(calls, 2, "upstream not called again during the cooldown");
+
+  const empty = memoryCache(1000);
+  const none = mockRes();
+  await cachedJson(none, empty, failing, "down");
+  console.error = errors;
+  assert.equal(none.statusCode, 502);
+  assert.deepEqual(none.json(), { error: "down" });
 });

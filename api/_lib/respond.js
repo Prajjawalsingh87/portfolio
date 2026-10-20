@@ -14,13 +14,44 @@ export function sendJson(res, status, body, cacheControl) {
   res.end(JSON.stringify(body));
 }
 
-// Keeps the last good response in memory while the function instance stays warm.
-export function memoryCache(ttlMs) {
+// Keeps the last good response in memory while the function instance stays warm,
+// and remembers failures: Vercel's CDN does not cache 502s, so without this every
+// request during an outage would hit the failing upstream again.
+export function memoryCache(ttlMs, cooldownMs = 60 * 1000) {
   let entry = null;
+  let failedAt = 0;
   return {
     get: () => (entry && Date.now() - entry.at < ttlMs ? entry.value : null),
+    // Last good value even if expired; served while the upstream is failing.
+    stale: () => entry?.value ?? null,
     set: (value) => {
       entry = { value, at: Date.now() };
+      failedAt = 0;
     },
+    fail: () => {
+      failedAt = Date.now();
+    },
+    coolingDown: () => Date.now() - failedAt < cooldownMs,
   };
+}
+
+// Shared flow: fresh cache -> upstream -> last good copy -> 502.
+export async function cachedJson(res, cache, load, errorMessage) {
+  const fresh = cache.get();
+  if (fresh) return sendJson(res, 200, fresh, CACHE_OK);
+
+  if (!cache.coolingDown()) {
+    try {
+      const body = await load();
+      cache.set(body);
+      return sendJson(res, 200, body, CACHE_OK);
+    } catch (error) {
+      console.error(error.message);
+      cache.fail();
+    }
+  }
+
+  const stale = cache.stale();
+  if (stale) return sendJson(res, 200, stale, CACHE_ERROR);
+  return sendJson(res, 502, { error: errorMessage }, CACHE_ERROR);
 }

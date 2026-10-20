@@ -1,4 +1,4 @@
-import { CACHE_ERROR, CACHE_OK, memoryCache, sendJson } from "./_lib/respond.js";
+import { cachedJson, memoryCache } from "./_lib/respond.js";
 
 const FEED = "https://medium.com/feed/@singhprajjawal87";
 const cache = memoryCache(10 * 60 * 1000);
@@ -55,29 +55,26 @@ export function parseFeed(xml, limit = 10) {
         date: Number.isFinite(published) ? new Date(published).toISOString() : null,
         summary: summaryFrom(content),
         image,
-        tags: [...item.matchAll(/<category>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/category>/gi)].map((m) => m[1]),
+        tags: [...item.matchAll(/<category>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/category>/gi)].map((m) => decodeEntities(m[1].trim())),
       },
     ];
   });
 }
 
 export default async function handler(req, res) {
-  const cached = cache.get();
-  if (cached) return sendJson(res, 200, cached, CACHE_OK);
-
-  try {
-    const response = await fetch(FEED, {
-      headers: { Accept: "application/rss+xml, application/xml, text/xml", "User-Agent": "Mozilla/5.0 (portfolio feed reader)" },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!response.ok) throw new Error(`Medium feed responded ${response.status}`);
-    const posts = parseFeed(await response.text());
-    if (!posts.length) throw new Error("Medium feed had no posts");
-    const body = { posts, updatedAt: new Date().toISOString() };
-    cache.set(body);
-    sendJson(res, 200, body, CACHE_OK);
-  } catch (error) {
-    console.error("api/medium:", error.message);
-    sendJson(res, 502, { error: "Could not load Medium posts right now." }, CACHE_ERROR);
-  }
+  await cachedJson(
+    res,
+    cache,
+    async () => {
+      const response = await fetch(FEED, {
+        headers: { Accept: "application/rss+xml, application/xml, text/xml", "User-Agent": "Mozilla/5.0 (portfolio feed reader)" },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!response.ok) throw new Error(`Medium feed responded ${response.status}`);
+      const posts = parseFeed(await response.text());
+      if (!posts.length) throw new Error("Medium feed had no posts");
+      return { posts, updatedAt: new Date().toISOString() };
+    },
+    "Could not load Medium posts right now.",
+  );
 }
