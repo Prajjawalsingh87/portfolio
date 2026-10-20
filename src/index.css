@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` utilities follow the theme picked by the toggle (or the system setting). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Design tokens — every color, font and radius used in the UI lives here. */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -22,6 +25,25 @@
   --color-on-accent: #ffffff;
 
   --radius-card: 1.25rem;
+}
+
+/* Dark theme: soft slate surfaces and off-white text, easier on the eyes than pure black. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #0f1420;
+  --color-surface: #161c2a;
+  --color-raised: #1f2738;
+  --color-line: #273044;
+  --color-line-strong: #36415a;
+
+  --color-fg: #e5e9f0;
+  --color-muted: #a7b0c0;
+  --color-subtle: #8a94a8;
+
+  --color-accent: #8b93f8;
+  --color-accent-strong: #aab0fb;
+  --color-accent-soft: rgb(139 147 248 / 0.12);
+  --color-on-accent: #0f1420;
 }
 
 @layer base {
@@ -82,10 +104,48 @@
   mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 35%, transparent 100%);
 }
 
+[data-theme="dark"] .bg-dots {
+  background-image: radial-gradient(rgb(226 232 240 / 0.07) 1px, transparent 1px);
+}
+
 /* Card shadow used across sections. */
 .shadow-card {
   box-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
 }
 .shadow-card-hover {
   box-shadow: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(37 99 235 / 0.28);
+}
+
+[data-theme="dark"] .shadow-card {
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+}
+
+/* Keyboard hint chips, used in the search button and dialog. */
+.kbd {
+  border: 1px solid var(--color-line);
+  border-bottom-width: 2px;
+  border-radius: 0.375rem;
+  background: var(--color-raised);
+  padding: 0.05rem 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+/* Brief outline on the item a search result jumped to. */
+.search-flash {
+  border-radius: 1rem;
+  animation: search-flash 1.8s ease-out;
+}
+
+@keyframes search-flash {
+  0%,
+  40% {
+    box-shadow: 0 0 0 3px var(--color-accent), 0 0 0 9px var(--color-accent-soft);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent, 0 0 0 9px transparent;
+  }
 }

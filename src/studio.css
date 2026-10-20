@@ -27,3 +27,8 @@ button:disabled { cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+[data-theme="dark"] .studio-input { background: var(--color-surface); border-color: var(--color-line); color: var(--color-fg); }
+[data-theme="dark"] .studio-input::placeholder { color: var(--color-subtle); }
+[data-theme="dark"] .studio-note { color: var(--color-subtle); }
+[data-theme="dark"] .studio-status { background: var(--color-accent-soft); color: var(--color-accent-strong); }
+.search-input:focus-visible { outline: none; }

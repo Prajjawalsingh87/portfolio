@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { links, navLinks, profile } from "../../data/profile";
-import { CloseIcon, GitHubIcon, MenuIcon } from "../Icons/Icons";
+import { CloseIcon, GitHubIcon, MenuIcon, SearchIcon } from "../Icons/Icons";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
-function Navbar() {
+const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
+
+function Navbar({ onSearch }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -42,7 +45,7 @@ function Navbar() {
         <a
           href="#home"
           onClick={close}
-          className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-fg"
+          className="flex items-center gap-2.5 whitespace-nowrap font-display text-lg font-bold tracking-tight text-fg"
         >
           <span
             aria-hidden="true"
@@ -53,7 +56,7 @@ function Navbar() {
           {profile.name}
         </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -66,10 +69,24 @@ function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              close();
+              onSearch();
+            }}
+            aria-label="Search the site"
+            aria-keyshortcuts="Control+K Meta+K /"
+            className="flex h-10 items-center gap-2 rounded-lg px-2.5 text-muted transition-colors hover:bg-raised hover:text-fg xl:border xl:border-line xl:bg-surface xl:hover:border-line-strong"
+          >
+            <SearchIcon width={18} height={18} />
+            <kbd className="kbd hidden xl:inline-flex">{isMac ? "⌘" : "Ctrl"} K</kbd>
+          </button>
+          <ThemeToggle />
           <a
             href="#contact"
-            className="hidden items-center rounded-xl bg-fg px-4 py-2.5 text-sm font-semibold text-surface transition-colors hover:bg-accent sm:inline-flex"
+            className="hidden items-center whitespace-nowrap rounded-xl bg-fg px-4 py-2.5 text-sm font-semibold text-surface transition-colors hover:bg-accent sm:inline-flex"
           >
             Get in touch
           </a>

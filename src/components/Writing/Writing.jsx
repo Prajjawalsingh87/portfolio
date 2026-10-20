@@ -1,36 +1,7 @@
 import { links } from "../../data/profile";
 import { ArrowUpRightIcon, MediumIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
-
-const post = (slug) => `https://medium.com/@singhprajjawal87/${slug}`;
-
-const articles = [
-  {
-    title: "Kafka vs WarpStream: same Kafka API, a very different engine",
-    date: "Oct 2026",
-    href: post("kafka-vs-warpstream-same-kafka-api-a-very-different-engine-1db5f5117e8b"),
-  },
-  {
-    title: "Understanding PACELC and Why R + W > N Matters in Distributed Systems",
-    date: "Jul 2026",
-    href: post("understanding-pacelc-and-why-r-w-n-matters-in-distributed-systems-73aa99447480"),
-  },
-  {
-    title: "Kubernetes Architecture Explained: From Pod Creation to Deployments, ReplicaSets, and Controllers",
-    date: "Jun 2026",
-    href: post("kubernetes-architecture-explained-from-pod-creation-to-deployments-replicasets-and-controllers-ee9036ea8ea8"),
-  },
-  {
-    title: "PostgreSQL Shared Memory Architecture",
-    date: "Jun 2026",
-    href: post("2-postgresql-shared-memory-architecture-aa78436ee54e"),
-  },
-  {
-    title: "How PostgreSQL actually works under the hood",
-    date: "May 2026",
-    href: post("how-postgresql-actually-works-under-the-hood-056ae22aae1b"),
-  },
-];
+import { articles, slug } from "../../data/content";
 
 function Writing() {
   return (
@@ -53,7 +24,7 @@ function Writing() {
     >
       <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-card">
         {articles.map((article) => (
-          <li key={article.href}>
+          <li key={article.href} id={`article-${slug(article.title)}`}>
             <a
               href={article.href}
               target="_blank"
