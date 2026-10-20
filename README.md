@@ -15,7 +15,7 @@ My personal portfolio: who I am, the backend stack I work with, selected project
 - **Writing**: latest articles from [Medium](https://medium.com/@singhprajjawal87)
 - **Contact**: email, LinkedIn, GitHub, Medium, LeetCode, CodeChef, Codeforces and a resume download
 
-Dark theme, sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
+Light theme, sticky navbar with a mobile menu, keyboard-friendly focus states and reduced-motion support.
 
 ## 🛠 Tech Stack
 
@@ -37,3 +37,29 @@ Profile links live in [`src/data/profile.js`](src/data/profile.js); each section
 ## 🚀 Deployment
 
 Deployed on **Vercel**; every push to `main` deploys to production.
+
+
+## October 2026 improvements
+
+Search featured projects by name, description or technology. The site uses a consistent light indigo/slate visual style, accessible focus states and reduced-motion support.
+
+
+## Terminal verification and deployment
+
+```bash
+npm ci
+npm run lint
+npm run build
+npm run dev
+```
+
+Node.js 24 is used on Vercel. The production build is written to `dist/`.
+
+```bash
+vercel link --project portfolio
+vercel deploy          # preview
+vercel deploy --prod   # publish production
+```
+
+The local `.vercel/` link is ignored by Git. Deployment credentials belong in
+the CLI's login session, never in this repository.
