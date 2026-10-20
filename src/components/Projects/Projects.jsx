@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { links } from "../../data/profile";
 import { ArrowUpRightIcon, GitHubIcon, GlobeIcon } from "../Icons/Icons";
 import Section from "../Section/Section";
@@ -24,7 +25,7 @@ const projects = [
   {
     title: "Quiz Competition Platform",
     description:
-      "Timed quiz game with solo play, join-by-code rooms, streaks, speed bonuses and an answer review.",
+      "Timed solo quizzes with topic selection, answer explanations and results saved on your device.",
     tags: ["React", "React Router", "Tailwind CSS"],
     live: "https://quiz-competition-plum.vercel.app",
     repo: gh("Quiz-Competition"),
@@ -97,6 +98,8 @@ function ProjectLinks({ live, repo, title, compact = false }) {
 }
 
 function Projects() {
+  const [query, setQuery] = useState("");
+  const visibleProjects = projects.filter(p => [p.title, p.description, ...p.tags].join(" ").toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <Section
       id="projects"
@@ -114,8 +117,13 @@ function Projects() {
         </a>
       }
     >
+      <div className="studio-toolbar">
+        <input className="studio-input" type="search" aria-label="Search projects" placeholder="Search projects or technologies…" value={query} onChange={e => setQuery(e.target.value)} />
+        <span className="studio-note" role="status">{visibleProjects.length} projects</span>
+      </div>
+      {visibleProjects.length === 0 && <p className="studio-status">No matching projects. Try React, Python, or C++.</p>}
       <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project, index) => (
+        {visibleProjects.map((project, index) => (
           <li key={project.title}>
             <article className="shadow-card hover:shadow-card-hover flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1">
               <span
