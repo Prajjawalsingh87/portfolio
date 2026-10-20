@@ -18,4 +18,9 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Serverless functions, tests and build config run in Node.
+    files: ['api/**/*.js', 'tests/**/*.js', 'vite.config.js'],
+    languageOptions: { globals: globals.node },
+  },
 ])

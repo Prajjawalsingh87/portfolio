@@ -1,9 +1,18 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ArrowUpRightIcon, CloseIcon, SearchIcon } from "../Icons/Icons";
+import { getArticles, loadArticles } from "../../data/live";
 import { createSearch, sectionDocs } from "./searchIndex";
 
+// The index is rebuilt only when the article list changes (live Medium posts arriving).
 let search;
-const getSearch = () => (search ??= createSearch());
+let indexedArticles;
+function getSearch(articles) {
+  if (!search || indexedArticles !== articles) {
+    search = createSearch(articles);
+    indexedArticles = articles;
+  }
+  return search;
+}
 
 const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -56,6 +65,7 @@ function goTo(result) {
 function SearchDialog({ onClose }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  const [articles, setArticles] = useState(getArticles);
   const panelRef = useRef(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
@@ -66,8 +76,17 @@ function SearchDialog({ onClose }) {
   const results = useMemo(() => {
     const q = query.trim();
     if (!q) return sectionDocs.map((s) => ({ id: `section:${s.id}`, kind: "Section", title: s.title, text: s.text, section: s.id, target: s.id }));
-    return getSearch()(q);
-  }, [query]);
+    return getSearch(articles)(q);
+  }, [query, articles]);
+
+  // Include the latest Medium posts once they have loaded.
+  useEffect(() => {
+    let mounted = true;
+    loadArticles().then((list) => mounted && setArticles(list));
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   // Remember what had focus, lock page scroll, and restore both on close.
   useEffect(() => {
