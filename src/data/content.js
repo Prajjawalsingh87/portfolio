@@ -20,52 +20,24 @@ export const ratings = [
 
 // Experience
 export const impact = [
-  { value: "90%+", label: "lower S3 storage cost through archival planning" },
-  { value: "60–70%", label: "cheaper streaming: self-hosted Kafka → WarpStream" },
-  { value: "90%", label: "lower static-asset delivery cost with a CDN" },
-  { value: "99.9%", label: "uptime SLA on Kubernetes + Helm" },
+  { value: "38%", label: "lower monthly spend: $1,500 to $930" },
+  { value: "60%", label: "faster average loads: 5 seconds to 2 seconds" },
+  { value: "800 KB", label: "coordinate payload, down from 2 MB" },
+  { value: "$570", label: "saved each month across three cost categories" },
 ];
 
 export const experience = [
-  {
-    title: "Real-time data pipeline & CDC",
-    text: "Automated the Kafka → ClickHouse ETL for 500K+ daily events, cutting reporting latency from hours to under 2 minutes. Used CDC (change data capture) to stream database changes, with replication for high availability and CQRS/Event Sourcing for audit-ready data.",
-  },
-  {
-    title: "Kafka → WarpStream migration",
-    text: "Moved streaming from self-hosted Kafka to WarpStream (Kafka-compatible, backed by object storage), keeping the same Kafka API while cutting streaming cost by about 60–70%.",
-  },
-  {
-    title: "S3 storage cost optimisation",
-    text: "Planned and ran a storage strategy for millions of old objects: batched them into large archives, verified every file, and moved them to Glacier Deep Archive with lifecycle rules, reducing S3 storage cost by over 90%.",
-  },
-  {
-    title: "APIs: Django, FastAPI, gRPC",
-    text: "Built Django and FastAPI services and REST endpoints at sub-50 ms p99, secured with OAuth2/JWT, plus gRPC for fast service-to-service calls. Layered with Repository, Factory and Strategy patterns.",
-  },
-  {
-    title: "Coordinate payload reduction",
-    text: "Implemented a coordinate-reduction algorithm (Ramer–Douglas–Peucker) and served routes over gRPC, shrinking GPS coordinate responses by ~90% for faster map rendering.",
-  },
-  {
-    title: "Infrastructure, networking & DNS",
-    text: "Containerized services with Docker and deployed them on Kubernetes with Helm and Ingress. Configured load balancers and Nginx as reverse proxy, and managed DNS with Route 53 hosted zones. Added a CDN that made global page loads 60% faster for 50K+ users.",
-  },
-  {
-    title: "AI tooling & MCP",
-    text: "Hands-on with the Model Context Protocol (MCP) for AI tool integrations, and use Claude Code, Cursor and Copilot with careful code review to ship tested code faster.",
-  },
-  {
-    title: "System design",
-    text: "Led design reviews on PostgreSQL sharding and indexing, Redis caching, ScyllaDB write optimisation and CAP trade-offs.",
-  },
-  {
-    title: "Production support",
-    text: "Debugged production issues across logs, metrics, databases and service responses, and shipped tested fixes quickly.",
-  },
+  { title: "Customer performance and cost investigation", text: "Investigated slow shape and coordinate loading and rising infrastructure costs by examining content delivery, coordinate payloads, S3 storage usage, and Kafka replication traffic across Availability Zones." },
+  { title: "CDN caching and application security", text: "Implemented CDN caching for frequently accessed content, reducing average load time from 5 seconds to 2 seconds (60%). Monthly origin data-transfer costs fell from $500 to $300 (40%). Integrated a WAF to filter malicious requests and protect application endpoints." },
+  { title: "Coordinate payload optimisation", text: "Removed redundant coordinates and optimised precision while preserving required shape accuracy. Average payload size fell from 2 MB to 800 KB (60%), making shapes faster to download and render and smoother to interact with." },
+  { title: "S3 storage cost optimisation", text: "Optimised stored data and applied lifecycle policies where appropriate, reducing monthly S3 storage costs from $300 to $210 (30%)." },
+  { title: "Kafka to WarpStream migration", text: "Moved a suitable messaging workload from Kafka to WarpStream to reduce cross-Availability Zone replication traffic. Monthly messaging infrastructure costs fell from $700 to $420 (40%). Across origin transfer, S3 storage, and messaging, monthly spend fell from $1,500 to $930, saving $570 (38%)." },
+  { title: "Real-time data pipeline and CDC", text: "Automated Kafka-to-ClickHouse ETL for 500K+ daily events, cutting reporting latency from hours to under 2 minutes, with replication, CQRS and Event Sourcing for audit-ready data." },
+  { title: "APIs and production infrastructure", text: "Built secured REST and FastAPI endpoints at sub-50 ms p99 using OAuth2/JWT. Containerized services with Docker and deployed them on Kubernetes using Helm and Ingress, supporting a 99.9% uptime SLA. Configured Nginx and load balancers and debugged production issues across logs, metrics and databases." },
+  { title: "System design and engineering practices", text: "Led design reviews on PostgreSQL sharding and indexing, Redis caching, ScyllaDB write optimisation and distributed consistency. Used Claude Code, Cursor and Copilot with critical code review to ship tested changes." },
 ];
 
-export const experienceStack = ["Django", "FastAPI", "gRPC", "Kafka", "WarpStream", "CDC", "ClickHouse", "PostgreSQL", "Redis", "ScyllaDB", "AWS S3", "Route 53", "Docker", "Kubernetes", "Helm", "Nginx", "Load Balancer", "MCP"];
+export const experienceStack = ["Django", "FastAPI", "gRPC", "Kafka", "WarpStream", "CDC", "ClickHouse", "PostgreSQL", "Redis", "ScyllaDB", "AWS S3", "WAF", "CDN", "Route 53", "Docker", "Kubernetes", "Helm", "Nginx", "Load Balancer", "MCP"];
 
 // Skills
 export const skillGroups = [
@@ -75,7 +47,7 @@ export const skillGroups = [
   { title: "Integrations", items: ["Webhooks", "Idempotency keys", "Retries & replay", "Reconciliation", "HMAC signing", "JWS/JWE", "Payment gateways"] },
   { title: "Databases", items: ["PostgreSQL", "MySQL", "ClickHouse", "ScyllaDB", "MongoDB", "Redis", "Memcached", "Query optimisation"] },
   { title: "Streaming", items: ["Kafka", "WarpStream", "CDC", "SQS", "RabbitMQ", "Event-driven", "CQRS", "Event sourcing", "Stream processing"] },
-  { title: "Cloud & DevOps", items: ["AWS EKS · RDS · S3", "S3 Glacier & lifecycle", "Route 53", "Hosted zones", "Load balancers", "Nginx", "CDN", "Docker", "Kubernetes", "Helm", "Ingress", "GitHub Actions"] },
+  { title: "Cloud & DevOps", items: ["AWS EKS · RDS · S3", "S3 Glacier & lifecycle", "Route 53", "Hosted zones", "Load balancers", "Nginx", "CDN", "WAF", "Docker", "Kubernetes", "Helm", "Ingress", "GitHub Actions"] },
   { title: "Observability", items: ["OpenTelemetry", "SigNoz", "Grafana", "Tracing", "Structured logging"] },
   { title: "AI tooling", items: ["MCP (Model Context Protocol)", "Claude Code", "Cursor", "GitHub Copilot"] },
   { title: "Foundations", items: ["DSA", "System design", "Concurrency", "OOP", "Design patterns"] },
@@ -159,7 +131,7 @@ export const devopsWork = [
   {
     title: "In production at TailNode",
     description:
-      "Services on Kubernetes via Helm and Ingress behind load balancers (99.9% uptime), Nginx as reverse proxy, Route 53 hosted zones for DNS, a CDN that cut asset costs by 90%, S3 archival that cut storage cost by 90%+, and a Kafka → WarpStream move that cut streaming cost by 60–70%.",
+      "Improved customer load times from 5s to 2s with CDN caching; added WAF protection and reduced coordinate payloads from 2 MB to 800 KB. Cut origin transfer costs by 40%, S3 storage by 30%, and messaging infrastructure by 40% through a suitable Kafka-to-WarpStream migration. Total monthly savings: $570 (38%).",
     tags: ["Helm", "Ingress", "Nginx", "Route 53", "CDN", "S3 Glacier", "WarpStream"],
   },
 ];
