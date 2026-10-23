@@ -13,8 +13,8 @@ function About() {
           <p>
             For the last year I&apos;ve been building production systems at TailNode: APIs that answer in under
             50&nbsp;ms, an event pipeline moving half a million events a day, and the Kubernetes, Nginx and Route 53
-            setup that keeps it all at 99.9% uptime. I also like making infrastructure cheaper: S3 storage down
-            90%+, streaming down 60–70% after moving from Kafka to WarpStream.
+            setup supporting a 99.9% uptime SLA. I also focus on customer experience and cost: load times
+            down from 5 seconds to 2, with monthly infrastructure spend reduced by 38%.
           </p>
           <p>
             I care about clean API design, reliable integrations (webhooks, idempotency, retries) and knowing

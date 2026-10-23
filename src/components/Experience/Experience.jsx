@@ -31,12 +31,29 @@ function Experience() {
         <div>
           <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {impact.map((item) => (
-              <div key={item.value} className="flex flex-col-reverse justify-end rounded-2xl bg-accent-soft p-4">
+              <div key={item.label} className="flex flex-col-reverse justify-end rounded-2xl bg-accent-soft p-4">
                 <dt className="mt-1 text-sm leading-5 text-muted">{item.label}</dt>
                 <dd className="font-display text-2xl font-extrabold text-accent md:text-3xl">{item.value}</dd>
               </div>
             ))}
           </dl>
+
+          <section className="mt-8 rounded-2xl border border-line bg-raised p-5 md:p-6" aria-label="Customer impact case study">
+            <p className="text-sm font-semibold uppercase tracking-wider text-accent">Customer impact</p>
+            <h4 className="mt-2 text-xl font-bold text-fg">Faster shapes. Safer endpoints. Lower cloud costs.</h4>
+            <p className="mt-3 leading-7 text-muted">Traced slow shape loading and growing bills across delivery, coordinate data, storage and cross-zone messaging. Combined CDN caching, WAF protection, smaller payloads, S3 lifecycle policies and a targeted WarpStream migration.</p>
+            <div className="mt-5 overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <caption className="sr-only">Monthly costs before and after optimisation, in US dollars</caption>
+                <thead><tr className="border-b border-line text-subtle"><th className="py-3 pr-4">Monthly cost (USD)</th><th className="px-3">Before</th><th className="px-3">After</th><th className="pl-3">Reduction</th></tr></thead>
+                <tbody className="text-muted">
+                  {[['Origin transfer', '$500', '$300', '40%'], ['S3 storage', '$300', '$210', '30%'], ['Messaging', '$700', '$420', '40%'], ['Total', '$1,500', '$930', '38%']].map(([name, before, after, saving]) => (
+                    <tr key={name} className="border-b border-line last:border-0 last:font-bold last:text-fg"><th scope="row" className="py-3 pr-4 font-medium">{name}</th><td className="px-3">{before}</td><td className="px-3">{after}</td><td className="pl-3 text-accent">{saving}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
           <ol className="relative mt-8 space-y-6 border-l-2 border-line pl-6">
             {experience.map((item) => (
